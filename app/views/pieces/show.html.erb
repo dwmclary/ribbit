@@ -1,0 +1,96 @@
+    <ul class="tabs" data-tabs="tabs">
+        <li class="active"><a href="#basic_info">Basic Information</a></li>
+        <li><a href="#dims">Dimensions</a></li>
+        <li><a href="#packing">Packing and Storage</a></li>
+        <li><a href="#loans">Loan Information</a></li>
+        <li><a href="#hanging">Installation</a></li>
+        <li><a href="#notes">Notes</a></li>
+    </ul>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <%= image_tag @p.photo.url(:large)%>
+        </div>
+        <div class="content">
+            <div id="my-tab-content" class="tab-content">
+                <div class="active tab-pane" id="basic_info" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">
+                        Accession # <strong><%= @p.accession%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Accession Date <strong><%= @p.accession_date %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Title <strong><%= @p.title %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Artist <strong><%= @p.artist %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Gender <strong><%= @p.artist_gender %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Born <strong><%= @p.artist_birthplace %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Created  <strong><%= @p.creation_date %></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Classification <strong><%= @p.classification%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                         Medium <strong><%= @p.medium%></strong>
+                    </div>
+                </div>
+            <div class="tab-pane" id="dims" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">
+                        Dimension <strong><%= @p.dimensions%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Framed Dimension <strong><%= @p.framed_dimension%></strong>
+                    </div>
+            </div>
+            <div class="tab-pane" id="packing" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">
+                        Located <strong><%= @p.location%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Packed In <strong><%= @p.packed_in%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Packed With <strong><%= @p.packed_with%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Packed Dimensions <strong><%= @p.packed_dimension%></strong>
+                    </div>
+            </div>
+            <div class="tab-pane" id="loans" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">
+                        Owner <strong><%= @p.owner%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">
+                        Loan Date <strong><%= @p.loan_date%></strong>
+                    </div>
+            </div>
+            <div class="tab-pane" id="notes" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">        
+                        Tags <strong><%= @p.tags%></strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">        
+                        Condition Notes <strong><%= @p.condition_notes%></strong>
+                    </div>
+            </div>
+            
+            <div class="tab-pane" id="hanging" style="font-size:20px">
+                    <div class="row" style="margin-bottom:20px">        
+                        Hanging Hardware <strong> <%= @p.hanging_hardware%> </strong>
+                    </div>
+                    <div class="row" style="margin-bottom:20px">        
+                        Handling Instructions <strong> <%= @p.handling_instructions%></strong>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+

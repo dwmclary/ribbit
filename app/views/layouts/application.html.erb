@@ -2,13 +2,35 @@
 <html>
 <head>
   <title>Ribbit</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag "bootstrap" %>
+  <%= javascript_include_tag "rails"%>
+  <%= javascript_include_tag "jquery-1.6.2.min.js" %>
+  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min.js" %>
+  <%= javascript_include_tag "bootstrap-tabs"%>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
+    <div class="container-fluid">
+        <div id="header">
+          <% if signed_in? -%>
+            <%= button_to "Sign out", sign_out_path, :method => :delete %>
+          <% else -%>
+            <%= button_to "Sign in", sign_in_path %>
+          <% end -%>
+        </div>
+        <div id="flash">
+          <% flash.each do |key, value| -%>
+            <div id="flash_<%= key %>"><%=h value %></div>
+          <% end %>
+        </div>
+        <div class="sidebar", style="padding-top: 40px;">
+            <%= link_to "New Object", new_piece_path, :class => "btn large primary", :style=> "width:130px; margin-bottom:10px" %>
+            <%= link_to "List Object", pieces_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
+        </div>
+        <div class="content">
+            <%= yield %>
+        </div>
+      </div>
 
 </body>
 </html>

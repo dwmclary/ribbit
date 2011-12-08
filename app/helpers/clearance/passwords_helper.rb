@@ -1,0 +1,2 @@
+module Clearance::PasswordsHelper
+end

@@ -1,0 +1,149 @@
+<%= form_for @piece, :url => pieces_path, :html => {:multipart => true} do |f|%>
+    <ul class="tabs" data-tabs="tabs">
+        <li class="active"><a href="#basic_info">Basic Information</a></li>
+        <li><a href="#dims">Dimensions</a></li>
+        <li><a href="#packing">Packing and Storage</a></li>
+        <li><a href="#loans">Loan Information</a></li>
+        <li><a href="#hanging">Installation</a></li>
+        <li><a href="#notes">Notes</a></li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+                <div class="active tab-pane" id="basic_info">
+                    <div class="row">
+                        <%= f.label :accesssion%>
+                        <%= f.text_field :accession %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :accession_date %>
+                        <%= f.text_field :accession_date %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :title %>
+                        <%= f.text_field :title %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :artist %>
+                        <%= f.text_field :artist%>
+                    </div>
+                    <div class="row">
+                        <%= f.label :artist_gender %>
+                        <%= f.select :artist, ["Male", "Female"], :include_blank => true%>
+                    </div>
+                    <div class="row">
+                        <%= f.label :artist_birthplace %>
+                        <%= f.text_field :artist_birthplace%>
+                    </div>
+                    <div class="row">
+                        <%= f.label :creation_date %>
+                        <%= f.text_field :creation_date %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :classification%>
+                        <%= f.select :classification, @piece.class.classifications, :include_blank => true%>
+                    </div>
+                        
+                    <div class="row" id="media_field_div">
+                        <%= f.label :medium%>
+                        <%= f.select :medium, @piece.class.media, :include_blank => true%>
+                    </div>
+
+                    <div class="row">
+                        <%= f.label :photo %>
+                        <%= f.file_field :photo %>
+                    </div>
+                </div>
+                <div class="tab-pane" id="dims">
+                    <div class="row">
+                            <%= f.label :dimensions%>
+                            <%= text_field_tag "piece_dimensions_h", "h", :class => "span1"%>
+                            <div class="input-prepend.span1">
+                                            <span class="add-on">x</span>
+                                            <%= text_field_tag "piece_dimensions_w", "w", :class => "span1"  %> 
+                            </div>
+                            <div class="input-prepend.span1">
+                                            <span class="add-on">x</span>
+                                            <%= text_field_tag "piece_dimensions_d", "d", :class => "span1"  %>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <%= f.label :framed_dimension %>
+                        <%= text_field_tag "framed_dimension_h", "h", :class => "span1"%>
+                          <div class="input-prepend.span1">
+                                          <span class="add-on">x</span>
+                                          <%= text_field_tag "framed_dimension_w", "w", :class => "span1"  %> 
+                          </div>
+                          <div class="input-prepend.span1">
+                                          <span class="add-on">x</span>
+                                          <%= text_field_tag "framed_dimension_d", "d", :class => "span1"  %>
+                          </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="packing">
+                    <div class="row">
+                        <%= f.label :packed_in%>
+                        <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :packed_with %>
+                        <%= f.select :packed_with, ["Bubble", "Glassine", "Dartek", "Collar"], :include_blank => true%>
+                    </div>
+                    <div class="row">
+                        <%= f.label :packed_dimension %>
+                        <%= text_field_tag "packed_dimension_h", "h", :class => "span1"%>
+                        <div class="input-prepend.span1">
+                                        <span class="add-on">x</span>
+                                        <%= text_field_tag "packed_dimension_w", "w", :class => "span1"  %> 
+                        </div>
+                        <div class="input-prepend.span1">
+                                        <span class="add-on">x</span>
+                                        <%= text_field_tag "packed_dimension_h", "d", :class => "span1"  %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <%= f.label :location %>
+                        <%= f.text_field :location %>
+                    </div>
+                </div>
+                <div class="tab-pane" id="loans">
+                    <div class="row">
+                        <%= f.label :owner %>
+                        <%= f.text_field :owner %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :loan_date %>
+                        <%= f.text_field :loan_date %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :outgoing_loan%>
+                        <%= f.check_box :outgoing_loan%>
+                    </div>
+                    <div class="row">
+                        <%= f.label :incoming_loan%>
+                        <%= f.check_box :incoming_loan%>
+                    </div>
+                </div>
+                <div class="tab-pane" id="notes">
+                    <div class="row">
+                        <%= f.label :tags %>
+                        <%= f.text_field :tags %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :condition_notes %>
+                        <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
+                    </div>
+                </div>
+                <div class="tab-pane" id="hanging">
+                    <div class="row">
+                        <%= f.label :hanging_hardware %>
+                        <%= f.text_area :hanging_hardware, :cols => 24, :rows => 6 %>
+                    </div>
+                    <div class="row">
+                        <%= f.label :handling_instructions %>
+                        <%= f.text_area :handling_instructions, :cols => 24, :rows => 12 %>
+                    </div>
+                </div>
+              </div>
+    <%= f.submit %>
+<% end %>
+
+

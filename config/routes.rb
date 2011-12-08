@@ -1,9 +1,28 @@
 Ribbit::Application.routes.draw do
   
-  resources :users
+  resources :passwords,
+    :controller => 'clearance/passwords',
+    :only       => [:new, :create]
+
+  resource  :session,
+    :controller => 'clearance/sessions',
+    :only       => [:new, :create, :destroy]
+
+  resources :users, :controller => 'clearance/users', :only => [:new, :create] do
+    resource :password,
+      :controller => 'clearance/passwords',
+      :only       => [:create, :edit, :update]
+  end
+
+  match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
+  match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
+  match 'sign_out' => 'clearance/sessions#destroy', :via => :delete, :as => 'sign_out'
   
   resources :pieces do
     resources :events
+    resources :galleries do
+      resources :gallery_images
+    end
   end
   
   # The priority is based upon order of creation:
@@ -55,7 +74,7 @@ Ribbit::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "home#show"
 
   # See how all your routes lay out with "rake routes"
 
