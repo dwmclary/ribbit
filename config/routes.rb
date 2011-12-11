@@ -25,6 +25,8 @@ Ribbit::Application.routes.draw do
     end
   end
   
+  match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

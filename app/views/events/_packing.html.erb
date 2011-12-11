@@ -1,0 +1,19 @@
+<%= form_for @p, :url => {:controller=>"pieces", :action=>"update", :id => @p.id} do |f|%>
+<div class="form-stacked">
+<div class="row" style="margin-left:10%; margin-top:2%">
+    <%= f.label :packed_in%>
+    <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
+</div>
+<div class="row" style="margin-left:10%; margin-top:2%">
+    <%= f.label :packed_with %>
+    <%= f.select :packed_with, ["Bubble", "Glassine", "Dartek", "Collar"], :include_blank => true%>
+</div>
+<div class="row" style="margin-left:10%; margin-top:2%">
+    <%= f.label :packed_dimension %>
+    <%= f.text_field :packed_dimension %>
+</div>
+<div class="row" style="margin-left:10%; margin-top:2%">
+    <%= f.submit%>
+</div>
+</div>
+<% end %>

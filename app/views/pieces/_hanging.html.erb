@@ -1,0 +1,10 @@
+<% unless @p.hanging_hardware.blank? %>
+<div class="row" style="margin-bottom:20px">        
+    Hanging Hardware <strong> <%= @p.hanging_hardware%> </strong>
+</div>
+<% end %>
+<% unless @p.handling_instructions.blank?%>
+<div class="row" style="margin-bottom:20px">        
+    Handling Instructions <strong> <%= @p.handling_instructions%></strong>
+</div>
+<% end %>

@@ -1,0 +1,10 @@
+<% unless @p.owner.blank?%>
+<div class="row" style="margin-bottom:20px">
+    Owner <strong><%= @p.owner%></strong>
+</div>
+<% end%>
+<% unless @p.loan_date.blank?%>
+<div class="row" style="margin-bottom:20px">
+    Loan Date <strong><%= @p.loan_date%></strong>
+</div>
+<% end %>

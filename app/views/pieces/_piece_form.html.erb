@@ -1,14 +1,14 @@
-<%= form_for @piece, :url => pieces_path, :html => {:multipart => true} do |f|%>
+<%= form_for @p, :url => piece_path, :html => {:multipart => true} do |f|%>
     <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#basic_info">Basic Information</a></li>
-        <li><a href="#dims">Dimensions</a></li>
-        <li><a href="#packing">Packing and Storage</a></li>
-        <li><a href="#loans">Loan Information</a></li>
-        <li><a href="#hanging">Installation</a></li>
-        <li><a href="#notes">Notes</a></li>
+        <li class="active"><a href="#form_basic_info">Basic Information</a></li>
+        <li><a href="#form_dims">Dimensions</a></li>
+        <li><a href="#form_packing">Packing and Storage</a></li>
+        <li><a href="#form_loans">Loan Information</a></li>
+        <li><a href="#form_hanging">Installation</a></li>
+        <li><a href="#form_notes">Notes</a></li>
     </ul>
     <div id="my-tab-content" class="tab-content">
-                <div class="active tab-pane" id="basic_info">
+                <div class="active tab-pane" id="form_basic_info">
                     <div class="row">
                         <%= f.label :accession%>
                         <%= f.text_field :accession %>
@@ -39,46 +39,26 @@
                     </div>
                     <div class="row">
                         <%= f.label :classification%>
-                        <%= f.select :classification, @piece.class.classifications, :include_blank => true%>
-                    </div>
-                        
-                    <div class="row" id="media_field_div">
-                        <%= f.label :medium%>
-                        <%= f.select :medium, @piece.class.media, :include_blank => true%>
+                        <%= f.select :classification, @p.class.classifications, :include_blank => true%>
                     </div>
 
                     <div class="row">
-                        <%= f.label :photo %>
-                        <%= f.file_field :photo %>
+                        <%= f.label :medium%>
+                        <%= f.select :medium, @p.class.media, :include_blank => true%>
                     </div>
+
                 </div>
-                <div class="tab-pane" id="dims">
+                <div class="tab-pane" id="form_dims">
                     <div class="row">
                             <%= f.label :dimensions%>
-                            <%= text_field_tag "piece_dimensions_h", "h", :class => "span1"%>
-                            <div class="input-prepend.span1">
-                                            <span class="add-on">x</span>
-                                            <%= text_field_tag "piece_dimensions_w", "w", :class => "span1"  %> 
-                            </div>
-                            <div class="input-prepend.span1">
-                                            <span class="add-on">x</span>
-                                            <%= text_field_tag "piece_dimensions_d", "d", :class => "span1"  %>
-                            </div>
+                            <%= f.text_field :dimensions %>
                     </div>
                     <div class="row">
                         <%= f.label :framed_dimension %>
-                        <%= text_field_tag "framed_dimension_h", "h", :class => "span1"%>
-                          <div class="input-prepend.span1">
-                                          <span class="add-on">x</span>
-                                          <%= text_field_tag "framed_dimension_w", "w", :class => "span1"  %> 
-                          </div>
-                          <div class="input-prepend.span1">
-                                          <span class="add-on">x</span>
-                                          <%= text_field_tag "framed_dimension_d", "d", :class => "span1"  %>
-                          </div>
+                        <%= f.text_field :framed_dimension %>
                     </div>
                 </div>
-                <div class="tab-pane" id="packing">
+                <div class="tab-pane" id="form_packing">
                     <div class="row">
                         <%= f.label :packed_in%>
                         <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
@@ -89,22 +69,14 @@
                     </div>
                     <div class="row">
                         <%= f.label :packed_dimension %>
-                        <%= text_field_tag "packed_dimension_h", "h", :class => "span1"%>
-                        <div class="input-prepend.span1">
-                                        <span class="add-on">x</span>
-                                        <%= text_field_tag "packed_dimension_w", "w", :class => "span1"  %> 
-                        </div>
-                        <div class="input-prepend.span1">
-                                        <span class="add-on">x</span>
-                                        <%= text_field_tag "packed_dimension_h", "d", :class => "span1"  %>
-                        </div>
+                        <%= f.text_field :packed_dimension %>
                     </div>
                     <div class="row">
                         <%= f.label :location %>
                         <%= f.text_field :location %>
                     </div>
                 </div>
-                <div class="tab-pane" id="loans">
+                <div class="tab-pane" id="form_loans">
                     <div class="row">
                         <%= f.label :owner %>
                         <%= f.text_field :owner %>
@@ -122,7 +94,7 @@
                         <%= f.check_box :incoming_loan%>
                     </div>
                 </div>
-                <div class="tab-pane" id="notes">
+                <div class="tab-pane" id="form_notes">
                     <div class="row">
                         <%= f.label :tags %>
                         <%= f.text_field :tags %>
@@ -132,7 +104,7 @@
                         <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
                     </div>
                 </div>
-                <div class="tab-pane" id="hanging">
+                <div class="tab-pane" id="form_hanging">
                     <div class="row">
                         <%= f.label :hanging_hardware %>
                         <%= f.text_area :hanging_hardware, :cols => 24, :rows => 6 %>
@@ -145,5 +117,3 @@
               </div>
     <%= f.submit %>
 <% end %>
-
-

@@ -1,3 +1,13 @@
+<!--  modal content -->
+<div id="modal-from-dom" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>Edit Object</h3>
+  </div>
+  <div class="modal-body">
+      <%= render "piece_form"%>
+  </div>
+</div>
     <ul class="tabs" data-tabs="tabs">
         <li class="active"><a href="#basic_info">Basic Information</a></li>
         <li><a href="#dims">Dimensions</a></li>
@@ -9,88 +19,41 @@
     <div class="container-fluid">
         <div class="sidebar">
             <%= image_tag @p.photo.url(:large)%>
+
         </div>
         <div class="content">
             <div id="my-tab-content" class="tab-content">
                 <div class="active tab-pane" id="basic_info" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">
-                        Accession # <strong><%= @p.accession%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Accession Date <strong><%= @p.accession_date %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Title <strong><%= @p.title %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Artist <strong><%= @p.artist %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Gender <strong><%= @p.artist_gender %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Born <strong><%= @p.artist_birthplace %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Created  <strong><%= @p.creation_date %></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Classification <strong><%= @p.classification%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                         Medium <strong><%= @p.medium%></strong>
-                    </div>
+                    <%= render "basic_info"%>
                 </div>
-            <div class="tab-pane" id="dims" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">
-                        Dimension <strong><%= @p.dimensions%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Framed Dimension <strong><%= @p.framed_dimension%></strong>
-                    </div>
+                <div class="tab-pane" id="dims" style="font-size:20px">
+                    <%= render "dimensions"%>
             </div>
-            <div class="tab-pane" id="packing" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">
-                        Located <strong><%= @p.location%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Packed In <strong><%= @p.packed_in%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Packed With <strong><%= @p.packed_with%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Packed Dimensions <strong><%= @p.packed_dimension%></strong>
-                    </div>
+                <div class="tab-pane" id="packing" style="font-size:20px">
+                    <%= render "packing_info"%>
             </div>
-            <div class="tab-pane" id="loans" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">
-                        Owner <strong><%= @p.owner%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">
-                        Loan Date <strong><%= @p.loan_date%></strong>
-                    </div>
+                
+                <div class="tab-pane" id="loans" style="font-size:20px">
+                    <%= render "loans"%>
             </div>
-            <div class="tab-pane" id="notes" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">        
-                        Tags <strong><%= @p.tags%></strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">        
-                        Condition Notes <strong><%= @p.condition_notes%></strong>
-                    </div>
+                
+                <div class="tab-pane" id="notes" style="font-size:20px">
+                    <%= render "notes"%>
+                </div>
+          
+                <div class="tab-pane" id="hanging" style="font-size:20px">
+                    <%= render "hanging" %>
+                </div>
             </div>
-            
-            <div class="tab-pane" id="hanging" style="font-size:20px">
-                    <div class="row" style="margin-bottom:20px">        
-                        Hanging Hardware <strong> <%= @p.hanging_hardware%> </strong>
-                    </div>
-                    <div class="row" style="margin-bottom:20px">        
-                        Handling Instructions <strong> <%= @p.handling_instructions%></strong>
-                    </div>
+            <div class="row"style="position:absolute; top: 100%;">
+            <a class="btn large info" data-controls-modal="modal-from-dom" data-backdrop="static", style="width:10%; margin-bottom:10px">Edit Object</a>
+            <%= link_to "Add Event", new_piece_event_path(@p), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
+            <%= link_to "Add Image", pieces_path, :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
+            <%= link_to "View Gallery", pieces_path, :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             </div>
         </div>
-    </div>
-
+    </div>    
+    
 
 
 

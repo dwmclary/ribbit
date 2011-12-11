@@ -50,7 +50,6 @@ class PiecesController < ApplicationController
       @piece.framed_dimension = framed_dimensions
     end
     
-    debugger
     respond_to do |format|
       if @piece.save
         format.html {redirect_to(@piece, :notice => "Object created!")}
@@ -64,6 +63,15 @@ class PiecesController < ApplicationController
   end
 
   def update
+    @piece = Piece.find(params[:id])
+    @piece.update_attributes(params[:piece])
+    respond_to do |format|
+      if @piece.save
+        format.html {redirect_to(@piece, :notice => "Object updated!")}
+      else
+        format.html {redirect_to(@piece, :warn => "Update failed!")}
+      end
+    end
   end
 
   def destroy

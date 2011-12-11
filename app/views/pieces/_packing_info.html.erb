@@ -1,0 +1,20 @@
+<% unless @p.location.blank? %>
+<div class="row" style="margin-bottom:20px">
+    Located <strong><%= @p.location%></strong>
+</div>
+<% end %>
+<% unless @p.packed_in.blank? %>
+<div class="row" style="margin-bottom:20px">
+    Packed In <strong><%= @p.packed_in%></strong>
+</div>
+<% end %>
+<% unless @p.packed_with.blank? %>
+<div class="row" style="margin-bottom:20px">
+    Packed With <strong><%= @p.packed_with%></strong>
+</div>
+<% end %>
+<% unless @p.packed_dimension.blank?%>
+<div class="row" style="margin-bottom:20px">
+    Packed Dimensions <strong><%= @p.packed_dimension%></strong>
+</div>
+<% end %>

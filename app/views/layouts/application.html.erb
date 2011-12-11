@@ -3,20 +3,34 @@
 <head>
   <title>Ribbit</title>
   <%= stylesheet_link_tag "bootstrap" %>
-  <%= javascript_include_tag "rails"%>
+  <%= stylesheet_link_tag "jquery-ui-1.8.16.custom" %>
   <%= javascript_include_tag "jquery-1.6.2.min.js" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min.js" %>
+  <%= javascript_include_tag "rails"%>
   <%= javascript_include_tag "bootstrap-tabs"%>
+  <%= javascript_include_tag "bootstrap-modal"%>
   <%= csrf_meta_tag %>
 </head>
 <body>
+    <% unless alert.nil?%>
+        <div class="span24 columns"> 
+              <div class="alert-message error">
+        		<%= alert %>
+        	  </div>
+        </div>
+    <% end %>
+    
+    <% unless notice.nil?%>
+        <div class="span24 columns"> 
+              <div class="alert-message success">
+        		<%= notice %>
+        	  </div>
+        </div>
+    <% end %>
+    
     <div class="container-fluid">
         <div id="header">
-          <% if signed_in? -%>
-            <%= button_to "Sign out", sign_out_path, :method => :delete %>
-          <% else -%>
-            <%= button_to "Sign in", sign_in_path %>
-          <% end -%>
+
         </div>
         <div id="flash">
           <% flash.each do |key, value| -%>
@@ -24,6 +38,12 @@
           <% end %>
         </div>
         <div class="sidebar", style="padding-top: 40px;">
+            <% if signed_in? %>
+              <%= current_user.email %>
+              <%= link_to "Sign out", sign_out_path, :method => :delete,  :class => "btn large", :style=> "width:130px; margin-bottom:10px" %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path,  :class => "btn large", :style=> "width:130px; margin-bottom:10px"%>
+            <% end %>
             <%= link_to "New Object", new_piece_path, :class => "btn large primary", :style=> "width:130px; margin-bottom:10px" %>
             <%= link_to "List Object", pieces_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
         </div>

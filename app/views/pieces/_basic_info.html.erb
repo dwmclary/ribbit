@@ -1,0 +1,45 @@
+<% unless @p.accession.blank? %>
+<div class="row" style="margin-bottom:20px">
+    Accession # <strong><%= @p.accession%></strong>
+</div>
+<% end %>
+<% unless @p.accession_date.blank?%>
+<div class="row" style="margin-bottom:20px">
+    Accession Date <strong><%= @p.accession_date %></strong>
+</div>
+<% end %>
+<% unless @p.title.blank? %>
+<div class="row" style="margin-bottom:20px">
+     Title <strong><%= @p.title %></strong>
+</div>
+<% end %>
+<% unless @p.artist.blank? %>
+<div class="row" style="margin-bottom:20px">
+     Artist <strong><%= @p.artist %></strong>
+</div>
+<% end %>
+<% unless @p.artist_gender.blank? %>
+<div class="row" style="margin-bottom:20px">
+    Gender <strong><%= @p.artist_gender %></strong>
+</div>
+<% end %>
+<% unless @p.artist_birthplace.blank?%>
+<div class="row" style="margin-bottom:20px">
+     Born <strong><%= @p.artist_birthplace %></strong>
+</div>
+<% end %>
+<% unless @p.creation_date.blank? %>
+<div class="row" style="margin-bottom:20px">
+     Created  <strong><%= @p.creation_date %></strong>
+</div>
+<% end %>
+<% unless @p.classification.blank? %>
+<div class="row" style="margin-bottom:20px">
+     Classification <strong><%= @p.classification%></strong>
+</div>
+<% end %>
+<% unless @p.medium.blank? %>
+<div class="row" style="margin-bottom:20px">
+     Medium <strong><%= @p.medium%></strong>
+</div>
+<% end %>

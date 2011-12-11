@@ -1,0 +1,10 @@
+<% unless @p.tags.blank?%>
+<div class="row" style="margin-bottom:20px">        
+    Tags <strong><%= @p.tags%></strong>
+</div>
+<% end %>
+<% unless @p.condition_notes.blank? %>
+<div class="row" style="margin-bottom:20px">        
+    Condition Notes <strong><%= @p.condition_notes%></strong>
+</div>
+<% end %>
