@@ -2,7 +2,7 @@
 <div class="form-stacked">
 <div class="row" style="margin-left:10%; margin-bottom:2%">
     <%= f.label :condition_notes %>
-    <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
+    <%= f.text_area :condition_notes, :default => @p.condition_notes, :cols => 24, :rows => 6 %>
 </div>
 <div class="row" style="margin-left:10%; margin-top:2%">
     <%= f.submit%>

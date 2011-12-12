@@ -12,6 +12,7 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
     @p = Piece.find(params[:piece_id])
     @event.piece_id = @p.id
+    @event.created_by = current_user.name
     @event.save!
     case @event.event_type
     when "Location Change"

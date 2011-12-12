@@ -41,6 +41,12 @@ class Piece < ActiveRecord::Base
     media_types
   end
   
+  def add_gallery
+    g = Gallery.new
+    g.piece_id = self.id
+    g.save!
+  end
+  
   def parse_dimensions(params)
     if params[:piece_dimensions_h] != "h" and params[:piece_dimensions_w] != "w"
       dims = [params[:piece_dimensions_h],params[:piece_dimensions_w]]

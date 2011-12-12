@@ -52,6 +52,7 @@ class PiecesController < ApplicationController
     
     respond_to do |format|
       if @piece.save
+        @piece.add_gallery
         format.html {redirect_to(@piece, :notice => "Object created!")}
       else
         format.html {render :action => "new"}

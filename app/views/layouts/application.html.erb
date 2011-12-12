@@ -7,8 +7,10 @@
   <%= javascript_include_tag "jquery-1.6.2.min.js" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min.js" %>
   <%= javascript_include_tag "rails"%>
+  <%= javascript_include_tag "bootstrap-twipsy"%>
   <%= javascript_include_tag "bootstrap-tabs"%>
   <%= javascript_include_tag "bootstrap-modal"%>
+  <%= javascript_include_tag "bootstrap-popover"%>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -30,14 +32,8 @@
     
     <div class="container-fluid">
         <div id="header">
-
         </div>
-        <div id="flash">
-          <% flash.each do |key, value| -%>
-            <div id="flash_<%= key %>"><%=h value %></div>
-          <% end %>
-        </div>
-        <div class="sidebar", style="padding-top: 40px;">
+        <div class="sidebar", style="margin-top: 1%; padding-top:40px">
             <% if signed_in? %>
               <%= current_user.email %>
               <%= link_to "Sign out", sign_out_path, :method => :delete,  :class => "btn large", :style=> "width:130px; margin-bottom:10px" %>
@@ -47,7 +43,7 @@
             <%= link_to "New Object", new_piece_path, :class => "btn large primary", :style=> "width:130px; margin-bottom:10px" %>
             <%= link_to "List Object", pieces_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
         </div>
-        <div class="content">
+        <div class="content" style="margin-top: 1%; padding-top:40px">
             <%= yield %>
         </div>
       </div>
