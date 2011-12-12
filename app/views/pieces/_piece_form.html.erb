@@ -10,7 +10,7 @@
     <div id="my-tab-content" class="tab-content">
                 <div class="active tab-pane" id="form_basic_info">
                     <div class="row">
-                        <%= f.label :accession%>
+                        <%= f.label "Accession #"%>
                         <%= f.text_field :accession %>
                     </div>
                     <div class="row">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="row">
                         <%= f.label :artist_gender %>
-                        <%= f.select :artist, ["Male", "Female"], :include_blank => true%>
+                        <%= f.select :artist_gender, ["Male", "Female"], :include_blank => true%>
                     </div>
                     <div class="row">
                         <%= f.label :artist_birthplace %>

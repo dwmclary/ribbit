@@ -1,0 +1,3 @@
+<% for p in @pieces %>
+    <%= link_to "#{p.title}:#{p.artist}", :action => "show", :id => p.id %>
+<% end %>

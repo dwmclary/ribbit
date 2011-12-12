@@ -15,6 +15,10 @@ class PiecesController < ApplicationController
   end
   
   def index
+    @pieces = Piece.all
+    respond_to do |format|
+      format.html
+    end
   end
   
   def create
