@@ -7,7 +7,6 @@ gem 'rails', '3.0.7'
 
 group :production do
   gem 'pg'
-  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 group :development, :test do
   gem 'sqlite3'
