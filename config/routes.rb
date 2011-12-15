@@ -24,6 +24,7 @@ Ribbit::Application.routes.draw do
       resources :gallery_images
     end
   end
+  resources :locations
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
   

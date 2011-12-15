@@ -1,0 +1,17 @@
+<%= form_for @location, :url => locations_path do |f| %>
+    <div class="row">
+        <%= f.label "Location Name", :style=> "margin-right:10px" %>
+        <%= f.text_field :name %>
+    </div>
+    <div class="row">
+        <%= f.label :address, :style=> "margin-right:10px" %>
+        <%= f.text_area :address, :cols => 24, :rows => 6 %>
+    </div>
+    <div class="row">
+        <%= f.label :notes, :style=> "margin-right:10px" %>
+        <%= f.text_area :notes, :cols => 24, :rows => 6 %>
+    </div>
+    <div class="row">
+        <%= f.submit %>
+    </div>
+<% end %>

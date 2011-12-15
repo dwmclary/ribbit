@@ -1,22 +1,22 @@
 <%= form_for @event, :url => piece_events_path(@piece), :html => {:multipart => true, :style => "margin-top:5%"} do |f|%>
     <div class="row">
-        <%= f.label :event_type%>
+        <%= f.label :event_type, :style=> "margin-right:10px"%>
         <%= f.select :event_type, ["Location Change", "Condition Update", "Packing Change", "Other"]%>
     </div>
     <div class="row">
-        <%=f.label :event_owner%>
+        <%=f.label :event_owner, :style=> "margin-right:10px"%>
         <%=f.text_field :event_owner, :value => current_user.name%>
     </div>
     <div class="row">
-    <%= f.label "Event notes"%>
+    <%= f.label "Event notes", :style=> "margin-right:10px"%>
     <%= f.text_area :event_tags, :style=>"height:150px"%>
     </div>
     <div class="row">
-    <%= f.label :event_time %>
+    <%= f.label :event_time, :style=> "margin-right:10px" %>
     <%= f.datepicker :event_time%>
     </div>
     <div class="row">
-        <%= f.label :photo %>
+        <%= f.label :photo, :style=> "margin-right:10px" %>
         <%= f.file_field :photo %>
     </div>
     <div class="row">

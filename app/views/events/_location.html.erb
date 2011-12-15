@@ -2,7 +2,7 @@
 <div class="form-stacked">
 <div class="row" style="margin-left:10%; margin-bottom:2%">
     <%= f.label :location %>
-    <%= f.text_field :location, :default => @p.location%>
+    <%= f.select :location, Location.all.map(&:name), :default => @p.location%>
 </div>
 <div class="row" style="margin-left:10%; margin-top:2%">
     <%= f.submit%>

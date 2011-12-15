@@ -26,11 +26,11 @@
         <% end %>
     </ul>
     <div class="container-fluid">
-        <div class="sidebar">
+        <div class="sidebar", style="width:300px">
             <%= image_tag @p.photo.url(:large)%>
 
         </div>
-        <div class="content">
+        <div class="content" style="padding-left:10%">
             <div id="my-tab-content" class="tab-content">
                 <div class="active tab-pane" id="basic_info" style="font-size:20px">
                     <%= render "basic_info"%>
@@ -89,12 +89,14 @@
                     </table>
                 </div>
             </div>
+            <% if signed_in? %>
             <div class="row"style="position:absolute; top: 100%;">
             <a class="btn large info" data-controls-modal="modal-from-dom" data-backdrop="static", style="width:10%; margin-bottom:10px">Edit Object</a>
             <%= link_to "Add Event", new_piece_event_path(@p), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             <%= link_to "View Gallery", piece_gallery_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             </div>
+            <% end %>
         </div>
     </div>    
     

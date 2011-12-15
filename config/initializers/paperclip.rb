@@ -11,6 +11,9 @@ end
 
 if File.exists?("#{Rails.root}/config/s3.yml")
   S3_CREDENTIALS = YAML.load_file Rails.root.join("config/s3.yml")
+  if Rails.env=="production"
+    S3_CREDENTIALS[:bucket] = "ribbitheroku"
+  end
 else
   S3_CREDENTIALS = { :access_key_id => ENV['S3_KEY'], :secret_access_key => ENV['S3_SECRET'], :bucket => "ourbucket"} 
 end
