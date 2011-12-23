@@ -16,6 +16,8 @@ class PiecesController < ApplicationController
   
   def index
     @pieces = Piece.all
+    @workspace = Piece.find(session[:workspace].uniq) 
+    @event = Event.new
     respond_to do |format|
       format.html
     end
@@ -66,6 +68,52 @@ class PiecesController < ApplicationController
 
   def edit
   end
+  
+  def add_to_workspace
+    piece_id = params[:piece_id].split(":").last
+    (session[:workspace] ||= []) << piece_id
+    render :nothing => true
+  end
+  
+  def remove_from_workspace
+    piece_id = params[:piece_id].split(":").last
+    session[:workspace].delete(piece_id)    
+    render :nothing => true
+  end
+  
+  def event_on_workspace
+    @events = []
+    @workspace = session[:workspace].uniq
+    @p = Piece.find(@workspace.first)
+    @workspace.each do |piece|
+      event = Event.new(params[:event])
+      p = Piece.find(piece)
+      event.piece_id = p.id
+      event.created_by = current_user.name
+      event.save!
+      @events << event
+    end
+    case @events.first.event_type
+    when "Location Change"
+      @modal_form = "workspace_location"
+    when "Condition Update"
+      @modal_form = "workspace_condition"
+    when "Packing Change"
+      @modal_form = "workspace_packing"
+    else
+      @modal_form = nil
+    end
+    
+    respond_to do |format|
+      if @workspace.empty?
+        format.html {redirect_to pieces_path, :alert => "Workspace is empty!"}
+      elsif @modal_form.nil?
+        format.html {redirect_to(pieces_path, :notice => "Event created!")}
+      else
+        format.html {render :action => "update_objects"}
+      end
+    end
+  end
 
   def update
     @piece = Piece.find(params[:id])
@@ -75,6 +123,25 @@ class PiecesController < ApplicationController
         format.html {redirect_to(@piece, :notice => "Object updated!")}
       else
         format.html {redirect_to(@piece, :warn => "Update failed!")}
+      end
+    end
+  end
+  
+  def update_workspace
+    
+    @workspace = Piece.find(session[:workspace].uniq) 
+    all_saved = true
+    for p in @workspace
+      p.update_attributes(params[:piece])
+      this_saved = p.save
+      all_saved = false if not this_saved
+    end
+
+    respond_to do |format|
+      if all_saved
+        format.html {redirect_to(pieces_path, :notice => "Objects updated!")}
+      else
+        format.html {redirect_to(pieces_path, :alert => "Objects not updated!")}
       end
     end
   end

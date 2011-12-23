@@ -1,0 +1,11 @@
+<%= form_for @p, :url => {:action => "update_workspace", :id => @p.id} do |f|%>
+<div class="form-stacked">
+<div class="row" style="margin-left:10%; margin-bottom:2%">
+    <%= f.label :location %>
+    <%= f.select :location, Location.all.map(&:name), :default => @p.location%>
+</div>
+<div class="row" style="margin-left:10%; margin-top:2%">
+    <%= f.submit%>
+</div>
+</div>
+<% end %>

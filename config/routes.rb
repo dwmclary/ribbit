@@ -17,7 +17,7 @@ Ribbit::Application.routes.draw do
   match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
   match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
   match 'sign_out' => 'clearance/sessions#destroy', :via => :delete, :as => 'sign_out'
-  
+  match 'pieces/update_workspace' => 'pieces#update_workspace'
   resources :pieces do
     resources :events
     resources :galleries do
@@ -27,6 +27,11 @@ Ribbit::Application.routes.draw do
   resources :locations
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
+  match 'pieces/add_to_workspace' => 'pieces#add_to_workspace'
+  match 'pieces/remove_from_workspace' => 'pieces#remove_from_workspace'
+  match 'pieces/event_on_workspace' => 'pieces#event_on_workspace'
+  match 'pieces/update_object' => 'pieces#update_objects'
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
