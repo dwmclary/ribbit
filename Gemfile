@@ -11,7 +11,12 @@ group :development, :test do
   gem 'ruby-debug'
 end
 
+group :production do
+  gem 'flying-sphinx'
+end
+
 gem 'thinking-sphinx'
+
 gem 'will_paginate', '~> 3.0'
 # Use unicorn as the web server
 # gem 'unicorn'

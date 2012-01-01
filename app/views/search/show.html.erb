@@ -1,0 +1,188 @@
+
+<style>
+	#gallery { float: left; width: 50%; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
+	.gallery.custom-state-active { background: #eee; }
+	.gallery li { float: left; width: 300px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+	.gallery li h5 { margin: 0 0 0.4em; width: 300px cursor: move; }
+	.gallery li a { float: right; }
+	.gallery li a.ui-icon-zoomin { float: left; }
+	.gallery li img { width: 90px; float: left; cursor: move; }
+
+	#workspace { float: left; width: 35%; height: 100%; min-height: 18em; padding: 1%;} * html #workspace { height: 18em; } /* IE6 */
+	#workspace h4 { line-height: 16px; margin: 0 0 0.4em; }
+	#workspace h4 .ui-icon { float: left; }
+	#workspace .gallery h5 { display: none; }
+	</style>
+	<script>
+	$('#update-workspace-modal').modal('show')
+	$(function() {
+		// there's the gallery and the workspace
+		var $gallery = $( "#gallery" ),
+			$workspace = $( "#workspace" );
+
+		// let the gallery items be draggable
+		$( "li", $gallery ).draggable({
+			cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+			revert: "invalid", // when not dropped, the item will revert back to its initial position
+			containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
+			helper: "clone",
+			cursor: "move"
+		});
+
+		// let the workspace be droppable, accepting the gallery items
+		$workspace.droppable({
+			accept: "#gallery > li",
+			activeClass: "ui-state-highlight",
+			drop: function( event, ui ) {
+				deleteImage( ui.draggable );
+			}
+		});
+
+		// let the gallery be droppable as well, accepting items from the workspace
+		$gallery.droppable({
+			accept: "#workspace li",
+			activeClass: "custom-state-active",
+			drop: function( event, ui ) {
+				recycleImage( ui.draggable );
+			}
+		});
+
+		// image deletion function
+		var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>";
+		function deleteImage( $item ) {
+			$item.fadeOut(function() {
+				var $list = $( "ul", $workspace ).length ?
+					$( "ul", $workspace ) :
+					$( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $workspace );
+					<% if signed_in? %>
+                        $.post("/pieces/add_to_workspace", { piece_id: $item[0]["id"], user_id: "<%=current_user.id%>" } );
+                    <% end %>
+				$item.find( "a.ui-icon-workspace" ).remove();
+				$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
+					$item
+						.animate({ width: "90%" })
+						.find( "img" )
+							.animate({ height: "45px", width: "45px" });
+				});
+			});
+		}
+
+		// image recycle function
+		var workspace_icon = "<a href='link/to/workspace/script/when/we/have/js/off' title='Delete this image' class='ui-icon ui-icon-workspace'>Delete image</a>";
+		function recycleImage( $item ) {
+		    <% if signed_in? %>
+		    $.post("/pieces/remove_from_workspace", { piece_id: $item[0]["id"], user_id: "<%=current_user.id%>" } );
+		    <% end %>
+			$item.fadeOut(function() {
+				$item
+					.find( "a.ui-icon-refresh" )
+						.remove()
+					.end()
+					.css( "width", "300px")
+					.append( workspace_icon )
+					.find( "img" )
+						.css( "width", "90px" )
+						.css( "height", "90px")
+					.end()
+					.appendTo( $gallery )
+					.fadeIn();
+			});
+		}
+
+		// image preview function, demonstrating the ui.dialog used as a modal window
+		function viewLargerImage( $link ) {
+			var src = $link.attr( "href" ),
+				title = $link.siblings( "img" ).attr( "alt" ),
+				$modal = $( "img[src$='" + src + "']" );
+
+			if ( $modal.length ) {
+				$modal.dialog( "open" );
+			} else {
+				var img = $( "<img alt='" + title + "' width='384' height='288' style='display: none; padding: 8px;' />" )
+					.attr( "src", src ).appendTo( "body" );
+				setTimeout(function() {
+					img.dialog({
+						title: title,
+						width: 400,
+						modal: true
+					});
+				}, 1 );
+			}
+		}
+
+		// resolve the icons behavior with event delegation
+		$( "ul.gallery > li" ).click(function( event ) {
+			var $item = $( this ),
+				$target = $( event.target );
+
+			if ( $target.is( "a.ui-icon-workspace" ) ) {
+				deleteImage( $item );
+			} else if ( $target.is( "a.ui-icon-zoomin" ) ) {
+				viewLargerImage( $target );
+			} else if ( $target.is( "a.ui-icon-refresh" ) ) {
+				recycleImage( $item );
+
+			}
+		  else if ( $target.is ("a.ui-icon-folder-open") ){
+              window.location=$target[0].href
+		  }
+
+			return false;
+		});
+	});
+	</script>
+<div class="demo ui-widget ui-helper-clearfix">
+    <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+    <% for p in @pieces %>
+    <% unless @workspace.member? p %>
+        <li id="#piece:<%=p.id%>" class="ui-widget-content ui-corner-tr">
+            <h5 class="ui-widget-header"><%= p.title%></h5>
+            		<%= image_tag p.photo.url(:small)%>
+            		<%= p.accession %></br>
+            		<%= p.title %> </br>
+            		<%= p.artist %> </br>
+            		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
+            		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
+        </li>
+    <% end %>
+    <% end %>
+    </ul>
+    
+    <div id="workspace" class="ui-widget-content ui-state-default">
+    	<h4 class="ui-widget-header"> Workspace<span class="ui-icon ui-icon-wrench"></span></h4>
+    	    <a class="btn large primary" data-controls-modal="update-workspace-modal" data-backdrop="static", style="position: relative; bottom:0; width:85%; margin-bottom:10px">Add Event</a>  
+    	<% unless @workspace.empty?%>
+            <ul class="gallery ui-helper-reset">
+        <% end %>
+    	<% for p in @workspace %>
+        	<li id="#piece:<%=p.id%>" class="ui-widget-content ui-corner-tr ui-draggable" style="width: 90%;">
+                <h5 class="ui-widget-header"><%= p.title%></h5>
+                		<%= image_tag p.photo.url(:small), :style => "height: 45px; width: 45px;"%>
+                		<%= p.accession %></br>
+                		<%= p.title %> </br>
+                		<%= p.artist %> </br>
+                		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
+                        <a href="link/to/recycle/script/when/we/have/js/off" title="Recycle this image" class="ui-icon ui-icon-refresh">Recycle image</a>
+                		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
+            </li>
+    	<% end %>
+    	<% unless @workspace.empty? %>
+    	    </ul>
+    	<% end %>
+    </div>
+
+
+
+</div><!-- End demo -->
+<%= will_paginate @pieces, :class=>"pagination" %>
+
+<!--  modal content -->
+<div id="update-workspace-modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>Add Event</h3>
+  </div>
+  <div class="modal-body">
+      <%= render "pieces/workspace_event_form" %>
+  </div>
+</div>

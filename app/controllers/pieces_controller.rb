@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  
+  before_filter :authorize
   def new
     @piece = Piece.new
     respond_to do |format|

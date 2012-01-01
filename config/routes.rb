@@ -25,6 +25,7 @@ Ribbit::Application.routes.draw do
     end
   end
   resources :locations
+  resources :search
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
   match 'pieces/add_to_workspace' => 'pieces#add_to_workspace'
