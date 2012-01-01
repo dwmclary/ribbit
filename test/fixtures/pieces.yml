@@ -1,11 +1,61 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+pieces_001: 
+  handling_instructions: ""
+  artist: Cindy Sherman
+  accession_date: 12/7/11
+  artist_birthplace: Glen Ridge, NJ, USA
+  photo_file_size: 53534
+  medium: ""
+  location: Vault, Shelf B
+  title: "untitled Film Still #16"
+  dimensions: 16x9
+  incoming_loan: f
+  packed_dimension: ""
+  packed_with: Bubble
+  updated_at: 2011-12-23 09:39:32.017460
+  photo_file_name: CindySherman-Untitled-Film-Still-16-1978.jpg
+  framed_dimension: 20x12
+  hanging_hardware: ""
+  creation_date: "1978"
+  packed_in: Portfolio
+  accession: 1985.fs.16
+  photo_content_type: image/jpeg
+  id: 1
+  artist_gender: Female
+  tags: added,some,tags
+  photo_updated_at: 2011-12-07 09:46:26.936837
+  outgoing_loan: f
+  loan_date: ""
+  classification: Photograph
+  condition_notes: Piece cleaned 12/13/11
+  owner: me
+pieces_002: 
+  handling_instructions: ""
+  artist: Anshile Gorky
+  accession_date: 2011/12/15
+  artist_birthplace: Armenia
+  photo_file_size: 89519
+  medium: Oil on Canvas
+  location: Vault, Shelf B
+  title: One Year the Milkweed
+  dimensions: ""
+  incoming_loan: f
+  packed_dimension: ""
+  packed_with: ""
+  updated_at: 2011-12-23 09:39:32.023335
+  photo_file_name: ArshileGorky-One-Year-the-Milkweed-1944.jpg
+  framed_dimension: ""
+  hanging_hardware: ""
+  creation_date: "1944"
+  packed_in: ""
+  accession: 2011.g.mw.1944
+  photo_content_type: image/jpeg
+  id: 3
+  artist_gender: Male
+  tags: ""
+  photo_updated_at: 2011-12-15 08:26:47.795977
+  outgoing_loan: f
+  loan_date: ""
+  classification: Painting
+  condition_notes: something
+  owner: Dan

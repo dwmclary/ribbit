@@ -54,7 +54,9 @@
 				var $list = $( "ul", $workspace ).length ?
 					$( "ul", $workspace ) :
 					$( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $workspace );
-                    $.post("/pieces/add_to_workspace", { piece_id: $item[0]["id"], user_id: "<%=current_user.id%>" } );
+					<% if signed_in? %>
+                        $.post("/pieces/add_to_workspace", { piece_id: $item[0]["id"], user_id: "<%=current_user.id%>" } );
+                    <% end %>
 				$item.find( "a.ui-icon-workspace" ).remove();
 				$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
 					$item
@@ -68,7 +70,9 @@
 		// image recycle function
 		var workspace_icon = "<a href='link/to/workspace/script/when/we/have/js/off' title='Delete this image' class='ui-icon ui-icon-workspace'>Delete image</a>";
 		function recycleImage( $item ) {
+		    <% if signed_in? %>
 		    $.post("/pieces/remove_from_workspace", { piece_id: $item[0]["id"], user_id: "<%=current_user.id%>" } );
+		    <% end %>
 			$item.fadeOut(function() {
 				$item
 					.find( "a.ui-icon-refresh" )
@@ -143,6 +147,7 @@
     <% end %>
     <% end %>
     </ul>
+    
     <div id="workspace" class="ui-widget-content ui-state-default">
     	<h4 class="ui-widget-header"> Workspace<span class="ui-icon ui-icon-wrench"></span></h4>
     	    <a class="btn large primary" data-controls-modal="update-workspace-modal" data-backdrop="static", style="position: relative; bottom:0; width:85%; margin-bottom:10px">Add Event</a>  
@@ -169,6 +174,7 @@
 
 
 </div><!-- End demo -->
+<%= will_paginate @pieces, :class=>"pagination" %>
 
 <!--  modal content -->
 <div id="update-workspace-modal" class="modal hide fade">

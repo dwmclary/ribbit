@@ -1,11 +1,99 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+events_001: 
+  created_at: 2011-12-11 20:12:15.307499
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-11 20:12:15.307499
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 1
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-12 00:00:00.000000
+  event_tags: ""
+  event_type: Location Change
+events_002: 
+  created_at: 2011-12-11 20:15:52.650057
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-11 20:15:52.650057
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 2
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-12 00:00:00.000000
+  event_tags: ""
+  event_type: Packing Change
+events_003: 
+  created_at: 2011-12-11 20:42:42.663049
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-11 20:42:42.663049
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 3
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-13 00:00:00.000000
+  event_tags: After unpacking, the still has been cleaned
+  event_type: Condition Update
+events_004: 
+  created_at: 2011-12-12 23:12:45.082658
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-12 23:12:45.082658
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 4
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2010-09-01 00:00:00.000000
+  event_tags: moved to gallery b
+  event_type: Location Change
+events_005: 
+  created_at: 2011-12-15 07:36:02.966127
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-15 07:36:02.966127
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 5
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-15 00:00:00.000000
+  event_tags: Moved to Main Gallery
+  event_type: Location Change
+events_006: 
+  created_at: 2011-12-23 09:39:24.369652
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-23 09:39:24.369652
+  photo_file_name: 
+  piece_id: 3
+  photo_content_type: 
+  id: 6
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-24 00:00:00.000000
+  event_tags: ""
+  event_type: Location Change
+events_007: 
+  created_at: 2011-12-23 09:39:24.380021
+  photo_file_size: 
+  event_owner: Dan McClary
+  updated_at: 2011-12-23 09:39:24.380021
+  photo_file_name: 
+  piece_id: 1
+  photo_content_type: 
+  id: 7
+  created_by: Dan McClary
+  photo_updated_at: 
+  event_time: 2011-12-24 00:00:00.000000
+  event_tags: ""
+  event_type: Location Change

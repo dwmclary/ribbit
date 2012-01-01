@@ -12,6 +12,31 @@ class Piece < ActiveRecord::Base
   PAINTING_MEDIA = ["Oil","Watercolor","Acrylic"]
   PAINTING_SURFACES = ["Panel", "Canvas", "Linen", "Paper", "Metal"]
   PRINTING_SURFACES = ["Lithograph", "Screenprint", "Blockprint"]
+  
+  self.per_page=3
+  
+  define_index do
+    indexes accession, :sortable => true
+    indexes title, :sortable => true
+    indexes artist, :sortable => true
+    indexes dimensions, :sortable => true
+    indexes creation_date, :sortable => true
+    indexes accession_date, :sortable => true
+    indexes loan_date, :sortable => true
+    indexes artist_birthplace
+    indexes tags
+    indexes packed_with
+    indexes packed_in
+    indexes artist_gender
+    indexes location, :sortable => true
+    indexes hanging_hardware
+    indexes handling_instructions
+    indexes classification
+    indexes medium
+    indexes framed_dimension, :sortable => true
+    indexes packed_dimension
+  end
+  
   def self.classifications
     ["Collage",
     "Drawing",

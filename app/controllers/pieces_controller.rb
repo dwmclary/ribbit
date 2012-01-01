@@ -15,8 +15,10 @@ class PiecesController < ApplicationController
   end
   
   def index
-    @pieces = Piece.all
-    @workspace = Piece.find(session[:workspace].uniq) 
+    @pieces = Piece.paginate(:page => params[:page])
+    # @pieces = Piece.all
+    @workspace = [] if session[:workspace].nil?
+    @workspace = Piece.find(session[:workspace].uniq) unless session[:workspace].nil?
     @event = Event.new
     respond_to do |format|
       format.html
@@ -129,7 +131,8 @@ class PiecesController < ApplicationController
   
   def update_workspace
     
-    @workspace = Piece.find(session[:workspace].uniq) 
+    @workspace = [] if session[:workspace].nil?
+    @workspace = Piece.find(session[:workspace].uniq) unless session[:workspace].nil?
     all_saved = true
     for p in @workspace
       p.update_attributes(params[:piece])
