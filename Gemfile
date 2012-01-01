@@ -7,15 +7,16 @@ gem 'rails', '3.0.7'
 gem 'pg'
 
 group :development, :test do
-  gem 'pg'
   gem 'ruby-debug'
 end
 
-group :production do
-  gem 'flying-sphinx',   '0.6.1'
-end
+gem 'thinking-sphinx', '2.0.10'
 
-gem 'thinking-sphinx'
+group :production do
+  gem 'flying-sphinx',   '0.6.0'
+end
+  
+
 
 gem 'will_paginate', '~> 3.0'
 # Use unicorn as the web server
