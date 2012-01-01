@@ -12,7 +12,7 @@ group :development, :test do
 end
 
 group :production do
-  gem 'flying-sphinx'
+  gem 'flying-sphinx',   '0.6.1'
 end
 
 gem 'thinking-sphinx'

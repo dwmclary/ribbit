@@ -127,7 +127,7 @@ PLATFORMS
 DEPENDENCIES
   aws-s3
   clearance
-  flying-sphinx
+  flying-sphinx (= 0.6.1)
   jquery_datepicker
   paperclip
   pg
