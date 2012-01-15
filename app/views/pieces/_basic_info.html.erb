@@ -17,6 +17,10 @@
 <div class="row" style="margin-bottom:20px">
      Artist <strong><%= link_to @artist.name, @artist %></strong>
 </div>
+<% else %>
+<div class="row" style="margin-bottom:20px">
+     Artist <strong><%=  @p.artist %></strong>
+</div>
 <% end %>
 <% unless @p.creation_date.blank? %>
 <div class="row" style="margin-bottom:20px">
