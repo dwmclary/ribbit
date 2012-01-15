@@ -13,7 +13,7 @@
      Title <strong><%= @p.title %></strong>
 </div>
 <% end %>
-<% unless @artist.blank? %>
+<% unless @artist.nil? %>
 <div class="row" style="margin-bottom:20px">
      Artist <strong><%= link_to @artist.name, @artist %></strong>
 </div>

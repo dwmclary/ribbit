@@ -16,7 +16,7 @@ class PiecesController < ApplicationController
   
   def show
     @p = Piece.find(params[:id])
-    @artist = Artist.find(@p.artist_id)
+    @artist = Artist.find(@p.artist_id) unless @p.artist_id.nil?
     respond_to do |format|
       format.html
     end
