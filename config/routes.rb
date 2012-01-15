@@ -26,13 +26,14 @@ Ribbit::Application.routes.draw do
   end
   resources :locations
   resources :search
+  resources :artists
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
   match 'pieces/add_to_workspace' => 'pieces#add_to_workspace'
   match 'pieces/remove_from_workspace' => 'pieces#remove_from_workspace'
   match 'pieces/event_on_workspace' => 'pieces#event_on_workspace'
   match 'pieces/update_object' => 'pieces#update_objects'
-
+  match 'pieces/materials' => 'pieces#materials'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

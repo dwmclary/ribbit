@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="sidebar", style="width:40%">
+        <%= image_tag @a.photo.url(:large)%>
+    </div>
+    
+    <div class="content", style="padding-left:10%">
+        <div class="row">
+            <div class="span-one-third" style="margin-bottom:10px">
+                <strong><%= @a.name %></strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span-one-third" style="margin-bottom:10px">
+                <%= @a.gender%>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span-one-third" style="margin-bottom:10px">
+                <%= @a.born%>-<%=@a.died%>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="span-one-third" style="margin-bottom:10px">
+                <%= @a.birthplace%>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span-one-third" style="margin-bottom:10px">
+                <%= @a.biography%>
+            </div>
+        </div>    
+    </div>
+</div>

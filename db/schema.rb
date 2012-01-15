@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111215071928) do
+ActiveRecord::Schema.define(:version => 20120114211739) do
+
+  create_table "artists", :force => true do |t|
+    t.string   "name",               :null => false
+    t.string   "gender"
+    t.string   "birthplace"
+    t.string   "born"
+    t.string   "died"
+    t.text     "biography"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", :force => true do |t|
     t.string   "event_type",         :null => false
@@ -80,7 +95,6 @@ ActiveRecord::Schema.define(:version => 20111215071928) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.string   "artist_gender"
     t.string   "classification"
     t.string   "medium"
     t.string   "framed_dimension"
@@ -93,10 +107,10 @@ ActiveRecord::Schema.define(:version => 20111215071928) do
     t.string   "creation_date"
     t.string   "accession_date"
     t.string   "loan_date"
-    t.string   "artist_birthplace"
     t.string   "tags"
     t.string   "packed_with"
     t.string   "packed_in"
+    t.integer  "artist_id"
   end
 
   create_table "users", :force => true do |t|

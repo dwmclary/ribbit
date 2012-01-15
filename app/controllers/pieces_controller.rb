@@ -1,5 +1,12 @@
 class PiecesController < ApplicationController
-  before_filter :authorize
+  before_filter :authorize, :except => :materials
+  
+  def materials
+    respond_to do |format|
+      format.json {render :json => MATERIALS[params[:surface]]}
+    end
+  end
+  
   def new
     @piece = Piece.new
     respond_to do |format|
@@ -9,6 +16,7 @@ class PiecesController < ApplicationController
   
   def show
     @p = Piece.find(params[:id])
+    @artist = Artist.find(@p.artist_id)
     respond_to do |format|
       format.html
     end
@@ -27,6 +35,7 @@ class PiecesController < ApplicationController
   
   def create
     @piece = Piece.new(params[:piece])
+    @piece.artist_id = Artist.find_by_name(@piece.artist).id
     #check the piece dimensions:
     if params[:piece_dimensions_h] != "h" and params[:piece_dimensions_w] != "w"
       dims = [params[:piece_dimensions_h],params[:piece_dimensions_w]]

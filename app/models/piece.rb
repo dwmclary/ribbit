@@ -9,9 +9,6 @@ class Piece < ActiveRecord::Base
   has_and_belongs_to_many :exhibits
   has_one :gallery
  
-  PAINTING_MEDIA = ["Oil","Watercolor","Acrylic"]
-  PAINTING_SURFACES = ["Panel", "Canvas", "Linen", "Paper", "Metal"]
-  PRINTING_SURFACES = ["Lithograph", "Screenprint", "Blockprint"]
   
   self.per_page=3
   
@@ -23,11 +20,9 @@ class Piece < ActiveRecord::Base
     indexes creation_date, :sortable => true
     indexes accession_date, :sortable => true
     indexes loan_date, :sortable => true
-    indexes artist_birthplace
     indexes tags
     indexes packed_with
     indexes packed_in
-    indexes artist_gender
     indexes location, :sortable => true
     indexes hanging_hardware
     indexes handling_instructions
@@ -38,34 +33,25 @@ class Piece < ActiveRecord::Base
   end
   
   def self.classifications
-    ["Collage",
-    "Drawing",
-    "Fiber Art",
-    "Light Art",
-    "Film",
-    "Installation",
-    "Mixed Media",
+    ["Sculpture",
     "Painting",
-    "Pastel",
-    "Photograph",
+    "Drawing",
     "Print",
-    "Sculpture",
+    "Photograph",
+    "Mixed media",
+    "Scroll",
     "Book",
-    "Scroll"]
+    "Portfolio",
+    "Installation",
+    "Fiber Art",
+    "Light art",
+    "Furnishing",
+    "Ephemera",
+    "Sound Art",
+    "Video"]
   end
 
-  
-  def self.media
-    media_types = []
-    PAINTING_MEDIA.each do |p|
-     PAINTING_SURFACES.each do |s| 
-       media_types << "#{p} on #{s}"
-     end
-    end
-    media_types += PRINTING_SURFACES
-    media_types
-  end
-  
+    
   def add_gallery
     g = Gallery.new
     g.piece_id = self.id

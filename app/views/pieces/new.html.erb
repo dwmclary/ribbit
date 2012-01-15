@@ -1,3 +1,31 @@
+<script type="text/javascript">
+    $(document).ready(function() {    
+        $("#piece_classification").change(function() {     
+            $.post("/pieces/materials", { surface: $(this).val() }, function(data) {
+                populateDropdown($("#piece_medium"), data);
+            });
+        });
+    });
+ 
+    function populateDropdown(select, data) {
+        select.html('');
+        if (data==null)
+        {
+            $("#piece_medium_container")[0].innerHTML = '<label for="piece_medium" style="margin-right:10px">Medium</label><input id="piece_medium" name="piece[medium]" type="text" size="30"/>';
+            
+        }
+        else
+        {
+            var select_start ='<label for="piece_medium" style="margin-right:10px">Medium</label><select id="piece_medium" name="piece[medium]"><option value=""></option>';
+            $.each(data, function(id, option) {
+                select_start += '<option>'+option+'</option>';
+            });       
+            $("#piece_medium_container")[0].innerHTML = select_start;
+        }
+        
+    }
+</script>
+
 <%= form_for @piece, :url => pieces_path, :html => {:multipart => true} do |f|%>
     <ul class="tabs" data-tabs="tabs">
         <li class="active"><a href="#basic_info">Basic Information</a></li>
@@ -26,14 +54,6 @@
                         <%= f.text_field :artist%>
                     </div>
                     <div class="row">
-                        <%= f.label :artist_gender, :style=> "margin-right:10px" %>
-                        <%= f.select :artist_gender, ["Male", "Female"], :include_blank => true%>
-                    </div>
-                    <div class="row">
-                        <%= f.label :artist_birthplace, :style=> "margin-right:10px" %>
-                        <%= f.text_field :artist_birthplace%>
-                    </div>
-                    <div class="row">
                         <%= f.label :creation_date, :style=> "margin-right:10px" %>
                         <%= f.text_field :creation_date %>
                     </div>
@@ -42,11 +62,10 @@
                         <%= f.select :classification, @piece.class.classifications, :include_blank => true%>
                     </div>
                         
-                    <div class="row" id="media_field_div">
+                    <div class="row" id="piece_medium_container">
                         <%= f.label :medium, :style=> "margin-right:10px"%>
-                        <%= f.select :medium, @piece.class.media, :include_blank => true%>
+                        <%= f.select :medium, [""]%>
                     </div>
-
                     <div class="row">
                         <%= f.label :photo, :style=> "margin-right:10px" %>
                         <%= f.file_field :photo %>
