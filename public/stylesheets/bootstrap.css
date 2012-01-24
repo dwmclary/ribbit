@@ -88,6 +88,7 @@ blockquote:after {
 html {
   overflow-y: scroll;
   font-size: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }

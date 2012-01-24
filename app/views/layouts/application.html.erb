@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Ribbit</title>
-  <%= stylesheet_link_tag "bootstrap" %>
   <%= stylesheet_link_tag "jquery-ui-1.8.16.custom" %>
+  <%= stylesheet_link_tag "bootstrap" %>
   <%= stylesheet_link_tag "jquery.autocomplete" %>
   <%= javascript_include_tag "jquery-1.6.2.min.js" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min.js" %>
@@ -40,14 +40,20 @@
             <% if signed_in? %>
               <%= current_user.email %>
               <%= link_to "Sign out", sign_out_path, :method => :delete,  :class => "btn large", :style=> "width:130px; margin-bottom:10px" %>
-            <% else %>
-              <%= link_to "Sign in", sign_in_path,  :class => "btn large", :style=> "width:130px; margin-bottom:10px"%>
-            <% end %>
             <%= link_to "Search", "/search", :class => "btn large primary", :style=> "width:130px; margin-bottom:10px"%>
+            <% if ['Registrar', 'Collections Manager', 'Administrator'].member? current_user.role %>
             <%= link_to "New Object", new_piece_path, :class => "btn large primary", :style=> "width:130px; margin-bottom:10px" %>
+            <% end %>
             <%= link_to "List All Objects", pieces_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
             <%= link_to "New Location", new_location_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
             <%= link_to "New Artist", new_artist_path, :class => "btn large primary",:style=> "width:130px; margin-bottom:10px" %>
+            <% if current_user.role == "Administrator" %>
+            <%= link_to "User Administration", "/users", :class => "btn large primary", :style=> "width:130px; margin-bottom:10px" %>
+            <% end %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path,  :class => "btn large", :style=> "width:130px; margin-bottom:10px"%>
+            <% end %>
+            
         </div>
         <div class="content" style="margin-top: 1%; padding-top:40px">
             <%= yield %>

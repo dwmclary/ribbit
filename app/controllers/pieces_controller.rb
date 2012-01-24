@@ -159,6 +159,11 @@ class PiecesController < ApplicationController
   end
 
   def destroy
+    @piece = Piece.find(params[:id])
+    @piece.destroy
+    respond_to do |format|
+      format.html {redirect_to(pieces_path, :alert => "Piece deleted!")}
+    end
   end
   
 end

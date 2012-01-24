@@ -91,10 +91,15 @@
             </div>
             <% if signed_in? %>
             <div class="row"style="position:absolute; top: 100%;">
+                <% if ['Preparator', 'Gallery Assistant', 'Intern', 'Administrator', 'Registrar', 'Collections Manager'].member? current_user.role%>
             <a class="btn large info" data-controls-modal="modal-from-dom" data-backdrop="static", style="width:10%; margin-bottom:10px">Edit Object</a>
+                <% end %>
             <%= link_to "Add Event", new_piece_event_path(@p), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             <%= link_to "View Gallery", piece_gallery_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
+            <% if current_user.role == "Administrator" %>
+                <%= link_to "Delete Object", {:controller => "pieces", :action => "destroy", :id => @p.id}, :method => :delete, :class => "btn large danger",:style=> "width:10%;margin-bottom:10px", :confirm => "Are you sure you want to delete this object?" %>
+            <% end %>
             </div>
             <% end %>
         </div>

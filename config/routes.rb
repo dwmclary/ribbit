@@ -13,6 +13,8 @@ Ribbit::Application.routes.draw do
       :controller => 'clearance/passwords',
       :only       => [:create, :edit, :update]
   end
+  
+  resources :users, :controller => 'users', :only => [:index, :update, :edit, :destroy]
 
   match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
   match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
@@ -25,7 +27,9 @@ Ribbit::Application.routes.draw do
     end
   end
   resources :locations
-  resources :search
+  match 'search' => 'search#index', :via => :get
+  match 'search/results' => 'search#show'
+  match 'search/results' => 'search#show'
   resources :artists
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'

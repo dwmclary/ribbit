@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_filter :authorize
   
   def new
     @piece = Piece.find(params[:piece_id])

@@ -1,5 +1,75 @@
+<script>
+    $(function() {
+            
+    $('#by_artist').button();
+    $('#by_artist').click(function(){sendSearchRequest("by_artist");});
+
+    $('#by_accession').button();
+    $('#by_accession').click(function(){sendSearchRequest("by_accession");});
+
+    $('#by_accession_date').button();
+    $('#by_accession_date').click(function(){sendSearchRequest("by_accession_date");});
+
+    $('#by_title').button();
+    $('#by_title').click(function(){sendSearchRequest("by_title");});
+
+    $('#by_date').button();
+    $('#by_date').click(function(){sendSearchRequest("by_date");});
+    
+    $('#by_medium').button();
+    $('#by_medium').click(function(){sendSearchRequest("by_medium");});
+    
+    $('#by_classification').button();
+    $('#by_classification').click(function(){sendSearchRequest("by_classification");});
+    
+    $('#by_location').button();
+    $('#by_location').click(function(){sendSearchRequest("by_location");});
+    
+    function sendSearchRequest(s){
+        var query = $('#q').val();
+        $.get("/search/results", {search_by: s, q:query}, function(html){
+            $('body').replaceWith(html);
+        });
+    }
+    });
+</script>
 <%= form_tag("/search/results", :method => "get") do %>
     <%= label_tag(:q, "Search for:") %>
     <%= text_field_tag(:q) %>
-    <%= submit_tag("Search") %>
+    <%= submit_tag "Search", :class => "btn large primary" %>
 <% end %>
+
+<div class="row">
+    <div class="span12">
+        <div class="row">
+            <div class="span4">
+                <button id="by_artist">By Artist</button>
+            </div>
+            <% if ['Administrator', 'Preparator', 'Registrar', 'Collections Manager'].member? current_user.role %>
+            <div class="span4">
+                <button id="by_accession">By Accession #</button>
+            </div>
+            <div class="span4">
+            <button id="by_accession_date">By Accession Date</button>
+            </div>
+            <% end %>
+            <div class="span4">
+                <button id="by_title">By Title</button>
+            </div>
+            <% if ['Administrator', 'Curator', 'Preparator', 'Conservator', 'Archivist', 'Artist', 'Owner'].member? current_user.role %>
+            <div class="span4">            
+                <button id="by_date">By Date</button>
+            </div>
+            <div class="span4">            
+                <button id="by_medium">By Medium</button>
+            </div>
+            <div class="span4">            
+                <button id="by_classification">By Classification</button>
+            </div>
+            <div class="span4">            
+                <button id="by_location">By Location</button>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
