@@ -14,6 +14,7 @@ gem 'thinking-sphinx', '2.0.10'
 
 group :production do
   gem 'flying-sphinx',   '0.6.0'
+  gem 'riddle', '1.5.0'
 end
   
 
