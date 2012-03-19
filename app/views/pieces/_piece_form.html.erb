@@ -82,6 +82,10 @@
                             <%= f.label :medium, :style=> "margin-right:10px"%>
                             <%= f.select :medium, [''], :include_blank => true%>
                         </div>
+                        <div class="row">
+                            <%= f.label :photo, :style=> "margin-right:10px" %>
+                            <%= f.file_field :photo %>
+                        </div>
 
                     </div>
                     <div class="tab-pane" id="form_dims">
