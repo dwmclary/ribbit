@@ -4,5 +4,5 @@ class Artist < ActiveRecord::Base
   :storage => :s3,
   :s3_credentials => S3_CREDENTIALS,
   :path => "/artists/:id/:style/:filename"
-  
+  has_many :pieces
 end

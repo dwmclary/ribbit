@@ -1,5 +1,5 @@
 <% if signed_in? %>
-    <%= form_for @event, :url => {:controller => "pieces", :action => "event_on_workspace"}, :html => {:multipart => true, :style => "margin-top:5%"} do |f|%>
+    <%= form_for @event, :url => {:controller => "pieces", :action => "event_on_workspace"}, :html => {:multipart => true, :style => "margin-top:5%; margin-left:10%"} do |f|%>
         <div class="row">
             <%= f.label :event_type, :style=> "margin-right:10px"%>
             <%= f.select :event_type, ["Location Change", "Condition Update", "Packing Change", "Other"]%>

@@ -1,0 +1,17 @@
+<%= form_for @person, :url => people_path do |f| %>
+    <div class="row">
+        <%= f.label "Name", :style=> "margin-right:10px" %>
+        <%= f.text_field :name %>
+    </div>
+    <div class="row">
+        <%= f.label :affiliation, :style=> "margin-right:10px" %>
+        <%= f.text_field :affiliation%>
+    </div>
+    <div class="row">
+        <%= f.label :details, :style=> "margin-right:10px" %>
+        <%= f.text_area :details, :cols => 24, :rows => 6%>
+    </div>
+    <div class="row">
+        <%= f.submit %>
+    </div>
+<% end %>

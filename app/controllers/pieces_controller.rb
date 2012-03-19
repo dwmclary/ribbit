@@ -7,6 +7,19 @@ class PiecesController < ApplicationController
     end
   end
   
+  def add_person
+    @piece = Piece.find(params[:piece_id])
+    @person = Person.find_by_name(params[:piece_person_select])
+    unless @piece.people.member? @person
+      @piece.people << @person
+    end
+    respond_to do |format|
+      if @piece.save and @person.save
+        format.html {redirect_to(@piece, :notice => "Person added!")}
+      end
+    end
+  end
+  
   def new
     @piece = Piece.new
     respond_to do |format|

@@ -60,6 +60,7 @@ GEM
     hashie (1.2.0)
     i18n (0.5.0)
     jquery_datepicker (0.3.2)
+    json (1.6.5)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     mail (2.2.19)
@@ -129,6 +130,7 @@ DEPENDENCIES
   clearance
   flying-sphinx (= 0.6.1)
   jquery_datepicker
+  json
   paperclip
   pg
   rails (= 3.0.7)

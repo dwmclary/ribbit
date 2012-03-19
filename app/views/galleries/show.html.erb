@@ -1,89 +1,20 @@
-  <%= stylesheet_link_tag "galleriffic-2" %>
-  <%= javascript_include_tag "jquery.galleriffic.js" %>
-  <%= javascript_include_tag "jquery.opacityrollover.js" %>
-
-
-<!-- We only want the thunbnails to display when javascript is disabled -->
-<script type="text/javascript">
-	document.write('<style>.noscript { display: none; }</style>');
-</script>
-        <div id="thumbs" class="navigation">
-        	<ul class="thumbs noscript">
-        	    <% for image in @gallery.gallery_images %>
-        	        <li>
-            	        <a class="thumb" name="optionalCustomIdentifier" href="<%=image.photo.url(:large)%>">
-                                    <img src="<%=image.photo.url(:small)%>" alt="<%=image.tags%>" />
-                        </a>
-                    </li>
-        	    <% end %>
-        	</ul>
+<div id="galleryCarousel" class="carousel" style="margin-top:10px">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <% first_image = true %>
+    <% for image in @gallery.gallery_images %>
+        <% if first_image %>
+            <div class="item active">
+            <% first_image = false%>
+        <% else %>
+            <div class="item">
+        <% end %>
+            <img src="<%=image.photo.url(:original)%>" style="display: block;   margin-left: auto;   margin-right: auto;"/>
         </div>
-        <!-- Start Advanced Gallery Html Containers -->
-        <div style="float:left">
-            <div id="gallery" class="content" style="height:300px">
-            	<div id="controls" class="controls"></div>
-            	<div class="slideshow-container">
-            		<div id="loading" class="loader"></div>
-            		<div id="slideshow" class="slideshow"></div>
-            	</div>
-            	<div id="caption" class="caption-container"></div>
-            </div>
-        </div>
-        <div style="width:1%">
-            <%= link_to "Return to Object", piece_path(@piece), :class => "btn large info"%>
-        </div>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		// We only want these styles applied when javascript is enabled
-		$('div.navigation').css({'width' : '25%', 'float' : 'left'});
-        $('div.content').css('display', 'block');
-
-		// Initially set opacity on thumbs and add
-		// additional styling for hover effect on thumbs
-		var onMouseOutOpacity = 0.67;
-		$('#thumbs ul.thumbs li').opacityrollover({
-			mouseOutOpacity:   onMouseOutOpacity,
-			mouseOverOpacity:  1.0,
-			fadeSpeed:         'fast',
-			exemptionSelector: '.selected'
-		});
-		
-		// Initialize Advanced Galleriffic Gallery
-		var gallery = $('#thumbs').galleriffic({
-			delay:                     2500,
-			numThumbs:                 15,
-			preloadAhead:              10,
-			enableTopPager:            true,
-			enableBottomPager:         true,
-			maxPagesToShow:            7,
-			imageContainerSel:         '#slideshow',
-			controlsContainerSel:      '#controls',
-			captionContainerSel:       '#caption',
-			loadingContainerSel:       '#loading',
-			renderSSControls:          true,
-			renderNavControls:         true,
-			playLinkText:              'Play Slideshow',
-			pauseLinkText:             'Pause Slideshow',
-			prevLinkText:              '&lsaquo; Previous Photo',
-			nextLinkText:              'Next Photo &rsaquo;',
-			nextPageLinkText:          'Next &rsaquo;',
-			prevPageLinkText:          '&lsaquo; Prev',
-			enableHistory:             false,
-			autoStart:                 false,
-			syncTransitions:           true,
-			defaultTransitionDuration: 900,
-			onSlideChange:             function(prevIndex, nextIndex) {
-				// 'this' refers to the gallery, which is an extension of $('#thumbs')
-				this.find('ul.thumbs').children()
-					.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-					.eq(nextIndex).fadeTo('fast', 1.0);
-			},
-			onPageTransitionOut:       function(callback) {
-				this.fadeTo('fast', 0.0, callback);
-			},
-			onPageTransitionIn:        function() {
-				this.fadeTo('fast', 1.0);
-			}
-		});
-	});
-</script>
+    <% end %>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#galleryCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#galleryCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<%= link_to "View Piece", piece_path(@piece), :class => "btn btn-primary info offset3",:style=> "width:50%; margin-bottom:10px" %>

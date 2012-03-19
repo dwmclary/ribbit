@@ -3,96 +3,135 @@
   $(function() {
     $("table#pieceEventIndexTable").tablesorter({ sortList: [[1,0]] });
   });
+  var allArtists = [];
+  $.get("/artists.js", function(data){
+      allArtists= JSON.parse(data);
+      $('.typeahead' && '.artist').typeahead({source:allArtists});
+  })
+  var allPeople = [];
+  $.get("/people.js", function(data){
+      allPeople = JSON.parse(data);
+      $('.typeahead' && '.people').typeahead({source:allPeople});
+  })
+ 
 </script>
 <!--  modal content -->
-<div id="modal-from-dom" class="modal hide fade">
+
+
+<div id="modal-from-dom" class="modal hide fade in" style="width:55%">
   <div class="modal-header">
-    <a href="#" class="close">&times;</a>
+      <a class="close" data-dismiss="modal">×</a>
     <h3>Edit Object</h3>
   </div>
   <div class="modal-body">
       <%= render "piece_form"%>
   </div>
 </div>
-    <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#basic_info">Basic Information</a></li>
-        <li><a href="#dims">Dimensions</a></li>
-        <li><a href="#packing">Packing and Storage</a></li>
-        <li><a href="#loans">Loan Information</a></li>
-        <li><a href="#hanging">Installation</a></li>
-        <li><a href="#notes">Notes</a></li>
+<div id="person-modal-from-dom" class="modal hide fade in">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Add Person</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+        <%= form_tag("/pieces/#{@p.id}/add_person") do %>
+                <%= label_tag :person, "Person", :style=> "margin-right:10px"%>
+                <%= text_field_tag "piece_person_select", "", {:class=>"typeahead people"}%>
+                <%= submit_tag "Add" %>
+        <% end %>
+        </div>
+    </div>
+</div>
+    <ul id="piece-tab" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#basic_info" data-toggle="tab">Basic Information</a></li>
+        <li><a href="#dims" data-toggle="tab">Dimensions</a></li>
+        <li><a href="#packing" data-toggle="tab">Packing and Storage</a></li>
+        <li><a href="#loans" data-toggle="tab">Loan Information</a></li>
+        <li><a href="#hanging" data-toggle="tab">Installation</a></li>
+        <li><a href="#notes" data-toggle="tab">Notes</a></li>
         <% unless @p.events.empty? %>
-        <li><a href="#events">Events</a></li>
+        <li><a href="#events" data-toggle="tab">Events</a></li>
+        <% end %>
+        <% unless @p.people.empty?%>
+        <li><a href="#people" data-toggle="tab">People</a></li>
         <% end %>
     </ul>
     <div class="container-fluid">
-        <div class="sidebar", style="width:40%">
-            <%= image_tag @p.photo.url(:large)%>
+        <div class="row-fluid">
+            <div class="span4">
+                <%= image_tag @p.photo.url(:large)%>
 
-        </div>
-        <div class="content", style="padding-left:20%">
-            <div id="my-tab-content" class="tab-content">
-                <div class="active tab-pane" id="basic_info" style="font-size:20px">
-                    <%= render "basic_info"%>
-                </div>
-                <div class="tab-pane" id="dims" style="font-size:20px">
-                    <%= render "dimensions"%>
             </div>
-                <div class="tab-pane" id="packing" style="font-size:20px">
-                    <%= render "packing_info"%>
-            </div>
+            <div class="span8">
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane fade active in" id="basic_info" style="font-size:20px">
+                        <%= render "basic_info"%>
+                    </div>
+                    <div class="tab-pane fade" id="dims" style="font-size:20px">
+                        <%= render "dimensions"%>
+                    </div>
+                    <div class="tab-pane fade" id="packing" style="font-size:20px">
+                        <%= render "packing_info"%>
+                    </div>
                 
-                <div class="tab-pane" id="loans" style="font-size:20px">
-                    <%= render "loans"%>
-            </div>
+                    <div class="tab-pane fade" id="loans" style="font-size:20px">
+                        <%= render "loans"%>
+                    </div>
                 
-                <div class="tab-pane" id="notes" style="font-size:20px">
-                    <%= render "notes"%>
-                </div>
+                    <div class="tab-pane fade" id="notes" style="font-size:20px">
+                        <%= render "notes"%>
+                    </div>
           
-                <div class="tab-pane" id="hanging" style="font-size:20px">
-                    <%= render "hanging" %>
-                </div>
-                <div class="tab-pane" id="events" style="font-size:20px">
-                    <table class="zebra-striped" id="pieceEventIndexTable", style="width:70%"> 
-                        <thead> 
-                            <tr> 
-                    	        <th class="blue">Event Date</th> 
-                                <th class="red">Event Type</th>
-                                <th class="green">Owner</th> 
-                            </tr> 
-                        </thead> 
-                        <tbody>
-                            <% for e in @p.events %>
-                            <tr>
-                                <td><%= e.event_time.to_date%></td>
-                                <% if e.event_tags.empty?%>
-                                <td> <%= e.event_type %></td>
-                                <% else %>
-                                <td><a href="#" rel="popover" data-content="<%=e.event_tags%>"><%= e.event_type %></a>
-                                          <script>
-                                            $(function () {
-                                              $("a[rel=popover]")
-                                                .popover({
-                                                  offset: 10
+                    <div class="tab-pane fade" id="hanging" style="font-size:20px">
+                        <%= render "hanging" %>
+                    </div>
+                    <div class="tab-pane fade" id="events" style="font-size:20px">
+                        <div class="row-fluid">
+                        <table class="table table-striped table-condensed" id="pieceEventIndexTable"> 
+                            <thead> 
+                                <tr> 
+                        	        <th>Event Date</th> 
+                                    <th>Event Type</th>
+                                    <th>Owner</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <% for e in @p.events %>
+                                <tr>
+                                    <td><%= e.event_time.to_date%></td>
+                                    <% if e.event_tags.empty?%>
+                                    <td> <%= e.event_type %></td>
+                                    <% else %>
+                                    <td><a href="#" rel="popover" data-content="<%=e.event_tags%>"><%= e.event_type %></a>
+                                              <script>
+                                                $(function () {
+                                                  $("a[rel=popover]")
+                                                    .popover({
+                                                      offset: 10
+                                                    })
+                                                    .click(function(e) {
+                                                      e.preventDefault()
+                                                    })
                                                 })
-                                                .click(function(e) {
-                                                  e.preventDefault()
-                                                })
-                                            })
-                                          </script></td>
+                                              </script></td>
+                                    <% end %>
+                                    <td><%= e.event_owner %></td>
+                                </tr>
                                 <% end %>
-                                <td><%= e.event_owner %></td>
-                            </tr>
-                            <% end %>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="people" style="font-size:20px">
+                        <%= render "people" %>
+                    </div>
                 </div>
-            </div>
             <% if signed_in? %>
-            <div class="row"style="position:absolute; top: 100%;">
+            </div>
+            <div class="span10">
                 <% if ['Preparator', 'Gallery Assistant', 'Intern', 'Administrator', 'Registrar', 'Collections Manager'].member? current_user.role%>
-            <a class="btn large info" data-controls-modal="modal-from-dom" data-backdrop="static", style="width:10%; margin-bottom:10px">Edit Object</a>
+            <a class="btn large info" data-toggle="modal" href="#modal-from-dom" style="width:10%; margin-bottom:10px">Edit Object</a>
+            <a class="btn large info" data-toggle="modal" href="#person-modal-from-dom" style="width:10%; margin-bottom:10px">Add Person</a>
                 <% end %>
             <%= link_to "Add Event", new_piece_event_path(@p), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
             <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>

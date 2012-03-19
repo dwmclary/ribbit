@@ -27,9 +27,7 @@
     
     function sendSearchRequest(s){
         var query = $('#q').val();
-        $.get("/search/results", {search_by: s, q:query}, function(html){
-            $('body').replaceWith(html);
-        });
+        $("#before_yield").load("/search/results", {search_by: s, q:query});
     }
     });
 </script>

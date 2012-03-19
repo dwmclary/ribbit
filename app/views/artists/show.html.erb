@@ -1,33 +1,61 @@
-<div class="container-fluid">
-    <div class="sidebar", style="width:40%">
-        <%= image_tag @a.photo.url(:large)%>
-    </div>
+<div class="container-fluid" style="margin-top:10px">
+    <div class="row-fluid">
+        <div class="span3">
+            <%= image_tag @a.photo.url(:large)%>
+        </div>
     
-    <div class="content", style="padding-left:10%">
-        <div class="row">
-            <div class="span-one-third" style="margin-bottom:10px">
-                <strong><%= @a.name %></strong>
+        <div class="span6", style="padding-left:10%">
+            <div class="row">
+                <div class="span-one-third" style="margin-bottom:10px">
+                    <strong><%= @a.name %></strong>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="span-one-third" style="margin-bottom:10px">
-                <%= @a.gender%>
+            <div class="row">
+                <div class="span-one-third" style="margin-bottom:10px">
+                    <%= @a.gender%>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="span-one-third" style="margin-bottom:10px">
-                <%= @a.born%>-<%=@a.died%>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="span-one-third" style="margin-bottom:10px">
-                <%= @a.birthplace%>
+            <div class="row">
+                <div class="span-one-third" style="margin-bottom:10px">
+                    <%= @a.born%>-<%=@a.died%>
+                </div>            
             </div>
-        </div>
-        <div class="row">
-            <div class="span-one-third" style="margin-bottom:10px">
-                <%= @a.biography%>
+            <div class="row">
+                <div class="span-one-third" style="margin-bottom:10px">
+                    <%= @a.birthplace%>
+                </div>
             </div>
-        </div>    
+            <div class="row">
+                <div class="span-one-third" style="margin-bottom:10px">
+                    <%= @a.biography%>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div id="artistCarousel" class="carousel" style="margin-top:10px">
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+            <% first_image = true %>
+            <% for piece in @a.pieces %>
+                <% if first_image %>
+                    <div class="item active">
+                    <% first_image = false%>
+                <% else %>
+                    <div class="item">
+                <% end %>
+                    <img src="<%=piece.photo.url(:original)%>" style="display: block;   margin-left: auto;   margin-right: auto;" alt>
+                    <div class="carousel-caption span2 offset4">
+                        <h4> <%= piece.title%> </h4>
+                        <p> <%= piece.artist.name%> </p>
+                    </div>
+                </div>
+            <% end %>
+          </div>
+          <!-- Carousel nav -->
+          <a class="carousel-control left" href="#artistCarousel" data-slide="prev">&lsaquo;</a>
+          <a class="carousel-control right" href="#artistCarousel" data-slide="next">&rsaquo;</a>
+        </div>
     </div>
 </div>

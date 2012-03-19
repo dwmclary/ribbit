@@ -1,11 +1,23 @@
 <script type="text/javascript">
     $(document).ready(function() {    
+        var getPeople = function()
+        {   
+            $.ajax({
+                url: "/people.js",
+                success: function(data){
+                    return JSON.parse(data);
+                }
+            })
+        }
         $("#piece_classification").change(function() {     
             $.post("/pieces/materials", { surface: $(this).val() }, function(data) {
                 populateDropdown($("#piece_medium"), data);
             });
         });
         $('#piece_artist').autocomplete('/artists.js');
+        $('#piece_person_select').autocomplete({
+            source: getPeople()
+            });
     });
  
     function populateDropdown(select, data) {
@@ -25,117 +37,119 @@
         }
         
     }
+    
+
 </script>
 
 
 <%= form_for @p, :url => piece_path, :html => {:multipart => true} do |f|%>
-    <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#form_basic_info">Basic Information</a></li>
-        <li><a href="#form_dims">Dimensions</a></li>
-        <li><a href="#form_packing">Packing and Storage</a></li>
-        <li><a href="#form_loans">Loan Information</a></li>
-        <li><a href="#form_hanging">Installation</a></li>
-        <li><a href="#form_notes">Notes</a></li>
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#form_basic_info" data-toggle="tab">Basic Information</a></li>
+        <li><a href="#form_dims" data-toggle="tab">Dimensions</a></li>
+        <li><a href="#form_packing" data-toggle="tab">Packing and Storage</a></li>
+        <li><a href="#form_loans" data-toggle="tab">Loan Information</a></li>
+        <li><a href="#form_hanging" data-toggle="tab">Installation</a></li>
+        <li><a href="#form_notes" data-toggle="tab">Notes</a></li>
     </ul>
-    <div id="my-tab-content" class="tab-content">
-                <div class="active tab-pane" id="form_basic_info">
-                    <div class="row">
-                        <%= f.label "Accession #", :style=> "margin-right:10px"%>
-                        <%= f.text_field :accession %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :accession_date , :style=> "margin-right:10px"%>
-                        <%= f.text_field :accession_date %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :title, :style=> "margin-right:10px" %>
-                        <%= f.text_field :title %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :artist, :style=> "margin-right:10px" %>
-                        <%= f.text_field :artist%>
-                    </div>
-                    <div class="row">
-                        <%= f.label :creation_date, :style=> "margin-right:10px" %>
-                        <%= f.text_field :creation_date %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :classification, :style=> "margin-right:10px"%>
-                        <%= f.select :classification, @p.class.classifications, :include_blank => true%>
-                    </div>
+        <div id="my-tab-content" class="tab-content" style="margin-left:10%">
+                    <div class="active tab-pane" id="form_basic_info">
+                        <div class="row">
+                            <%= f.label "Accession #", :style=> "margin-right:10px"%>
+                            <%= f.text_field :accession %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :accession_date , :style=> "margin-right:10px"%>
+                            <%= f.text_field :accession_date %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :title, :style=> "margin-right:10px" %>
+                            <%= f.text_field :title %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :artist, :style=> "margin-right:10px" %>
+                            <%= f.text_field :artist, :class => "typeahead artist"%>
+                        </div>
+                        <div class="row">
+                            <%= f.label :creation_date, :style=> "margin-right:10px" %>
+                            <%= f.text_field :creation_date %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :classification, :style=> "margin-right:10px"%>
+                            <%= f.select :classification, @p.class.classifications, :include_blank => true%>
+                        </div>
 
-                    <div class="row" id="piece_medium_container">
-                        <%= f.label :medium, :style=> "margin-right:10px"%>
-                        <%= f.select :medium, [''], :include_blank => true%>
-                    </div>
+                        <div class="row" id="piece_medium_container">
+                            <%= f.label :medium, :style=> "margin-right:10px"%>
+                            <%= f.select :medium, [''], :include_blank => true%>
+                        </div>
 
-                </div>
-                <div class="tab-pane" id="form_dims">
-                    <div class="row">
-                            <%= f.label :dimensions, :style=> "margin-right:10px"%>
-                            <%= f.text_field :dimensions %>
                     </div>
-                    <div class="row">
-                        <%= f.label :framed_dimension, :style=> "margin-right:10px" %>
-                        <%= f.text_field :framed_dimension %>
+                    <div class="tab-pane" id="form_dims">
+                        <div class="row">
+                                <%= f.label :dimensions, :style=> "margin-right:10px"%>
+                                <%= f.text_field :dimensions %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :framed_dimension, :style=> "margin-right:10px" %>
+                            <%= f.text_field :framed_dimension %>
+                        </div>
                     </div>
-                </div>
-                <div class="tab-pane" id="form_packing">
-                    <div class="row">
-                        <%= f.label :packed_in, :style=> "margin-right:10px"%>
-                        <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
+                    <div class="tab-pane" id="form_packing">
+                        <div class="row">
+                            <%= f.label :packed_in, :style=> "margin-right:10px"%>
+                            <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :packed_with, :style=> "margin-right:10px" %>
+                            <%= f.select :packed_with, ["Bubble", "Glassine", "Dartek", "Collar"], :include_blank => true%>
+                        </div>
+                        <div class="row">
+                            <%= f.label :packed_dimension, :style=> "margin-right:10px" %>
+                            <%= f.text_field :packed_dimension %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :location, :style=> "margin-right:10px" %>
+                            <%= f.select :location, Location.all.map(&:name) %>
+                        </div>
                     </div>
-                    <div class="row">
-                        <%= f.label :packed_with, :style=> "margin-right:10px" %>
-                        <%= f.select :packed_with, ["Bubble", "Glassine", "Dartek", "Collar"], :include_blank => true%>
+                    <div class="tab-pane" id="form_loans">
+                        <div class="row">
+                            <%= f.label :owner, :style=> "margin-right:10px" %>
+                            <%= f.text_field :owner %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :loan_date, :style=> "margin-right:10px" %>
+                            <%= f.text_field :loan_date %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :outgoing_loan, :style=> "margin-right:10px"%>
+                            <%= f.check_box :outgoing_loan%>
+                        </div>
+                        <div class="row">
+                            <%= f.label :incoming_loan, :style=> "margin-right:10px"%>
+                            <%= f.check_box :incoming_loan%>
+                        </div>
                     </div>
-                    <div class="row">
-                        <%= f.label :packed_dimension, :style=> "margin-right:10px" %>
-                        <%= f.text_field :packed_dimension %>
+                    <div class="tab-pane" id="form_notes">
+                        <div class="row">
+                            <%= f.label :tags, :style=> "margin-right:10px" %>
+                            <%= f.text_field :tags %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :condition_notes, :style=> "margin-right:10px" %>
+                            <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
+                        </div>
                     </div>
-                    <div class="row">
-                        <%= f.label :location, :style=> "margin-right:10px" %>
-                        <%= f.select :location, Location.all.map(&:name) %>
+                    <div class="tab-pane" id="form_hanging">
+                        <div class="row">
+                            <%= f.label :hanging_hardware, :style=> "margin-right:10px" %>
+                            <%= f.text_area :hanging_hardware, :cols => 24, :rows => 6 %>
+                        </div>
+                        <div class="row">
+                            <%= f.label :handling_instructions, :style=> "margin-right:10px" %>
+                            <%= f.text_area :handling_instructions, :cols => 24, :rows => 12 %>
+                        </div>
                     </div>
-                </div>
-                <div class="tab-pane" id="form_loans">
-                    <div class="row">
-                        <%= f.label :owner, :style=> "margin-right:10px" %>
-                        <%= f.text_field :owner %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :loan_date, :style=> "margin-right:10px" %>
-                        <%= f.text_field :loan_date %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :outgoing_loan, :style=> "margin-right:10px"%>
-                        <%= f.check_box :outgoing_loan%>
-                    </div>
-                    <div class="row">
-                        <%= f.label :incoming_loan, :style=> "margin-right:10px"%>
-                        <%= f.check_box :incoming_loan%>
-                    </div>
-                </div>
-                <div class="tab-pane" id="form_notes">
-                    <div class="row">
-                        <%= f.label :tags, :style=> "margin-right:10px" %>
-                        <%= f.text_field :tags %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :condition_notes, :style=> "margin-right:10px" %>
-                        <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
-                    </div>
-                </div>
-                <div class="tab-pane" id="form_hanging">
-                    <div class="row">
-                        <%= f.label :hanging_hardware, :style=> "margin-right:10px" %>
-                        <%= f.text_area :hanging_hardware, :cols => 24, :rows => 6 %>
-                    </div>
-                    <div class="row">
-                        <%= f.label :handling_instructions, :style=> "margin-right:10px" %>
-                        <%= f.text_area :handling_instructions, :cols => 24, :rows => 12 %>
-                    </div>
-                </div>
-              </div>
+                  </div>
     <%= f.submit %>
 <% end %>

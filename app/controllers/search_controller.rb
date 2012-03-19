@@ -29,15 +29,22 @@ class SearchController < ApplicationController
           @pieces = Piece.where("location LIKE ?", query).paginate(:page => params[:page], :per_page => Piece.per_page)          
         end
       else
-       
-        @pieces = Piece.search params[:q],  :page => params[:page], :per_page => Piece.per_page
+        query = "%"+params[:q]+"%"
+        @pieces = Piece.where("artist LIKE ? OR accession LIKE ? OR accession_date LIKE ?
+        OR title LIKE ? OR creation_date LIKE ? or medium LIKE ? OR classification LIKE ?
+        OR location LIKE ?", query, query, query, query, query, query, query, query).paginate(:page => params[:page], :per_page => Piece.per_page)
+        # @pieces = Piece.search params[:q],  :page => params[:page], :per_page => Piece.per_page
         @q = params[:q]
       end
     else
       @pieces = []
     end
     respond_to do |format|
-      format.html
+      if params.member? :commit
+        format.html
+      else
+        format.html {render :show, :layout => false}
+      end
     end
   end
   

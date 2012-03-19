@@ -1,18 +1,18 @@
 
 <style>
-	#gallery { float: left; width: 50%; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
+	#gallery { float: left; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
 	.gallery.custom-state-active { background: #eee; }
 	.gallery li { float: left; width: 300px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
 	.gallery li h5 { margin: 0 0 0.4em; width: 300px cursor: move; }
 	.gallery li a { float: right; }
 	.gallery li a.ui-icon-zoomin { float: left; }
-	.gallery li img { width: 90px; float: left; cursor: move; }
+	.gallery li img {cursor: move; }
 
-	#workspace { float: left; width: 35%; height: 100%; min-height: 18em; padding: 1%;} * html #workspace { height: 18em; } /* IE6 */
+	#workspace { float: left; width: 75%; height: 10%; min-height: 7em; padding: 1%;} * html #workspace { height: 18em; } /* IE6 */
 	#workspace h4 { line-height: 16px; margin: 0 0 0.4em; }
 	#workspace h4 .ui-icon { float: left; }
 	#workspace .gallery h5 { display: none; }
-	</style>
+</style>
 	<script>
 	$('#update-workspace-modal').modal('show')
 	$(function() {
@@ -60,9 +60,9 @@
 				$item.find( "a.ui-icon-workspace" ).remove();
 				$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
 					$item
-						.animate({ width: "90%" })
+						.animate({ height: "135px", width: "130px" })
 						.find( "img" )
-							.animate({ height: "45px", width: "45px" });
+							.animate({ height: "105px", width: "110px" });
 				});
 			});
 		}
@@ -75,14 +75,15 @@
 		    <% end %>
 			$item.fadeOut(function() {
 				$item
+				    .animate({ height: "235px", width: "260px" })
 					.find( "a.ui-icon-refresh" )
 						.remove()
 					.end()
-					.css( "width", "300px")
 					.append( workspace_icon )
 					.find( "img" )
-						.css( "width", "90px" )
-						.css( "height", "90px")
+						.css( "display", "" )
+						.css( "width", "")
+						.css( "height", "")
 					.end()
 					.appendTo( $gallery )
 					.fadeIn();
@@ -132,34 +133,39 @@
 	});
 	</script>
 <div class="demo ui-widget ui-helper-clearfix">
-    <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
-    <% for p in @pieces %>
-    <% unless @workspace.member? p %>
-        <li id="#piece:<%=p.id%>" class="ui-widget-content ui-corner-tr">
-            <h5 class="ui-widget-header"><%= p.title%></h5>
-            		<%= image_tag p.photo.url(:small)%>
-            		<%= p.accession %></br>
-            		<%= p.title %> </br>
-            		<%= p.artist %> </br>
-            		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
-            		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
-        </li>
-    <% end %>
-    <% end %>
-    </ul>
-    
+    <div class="row-fluid">
+        <div class="span9">
+            <ul id="gallery" class="gallery thumbnails ui-helper-reset ui-helper-clearfix">
+            <% for p in @pieces %>
+            <% unless @workspace.member? p %>
+                <li id="#piece:<%=p.id%>" class="ui-widget-content ui-corner-tr span3" style="height:235px;width:260px">
+                    <h5 class="ui-widget-header">
+                        <%= p.title%></br>
+                        <%= p.accession%>
+                    </h5>
+                    		<%= image_tag p.photo.url(:medium)%></br>
+                    		<%= p.artist %> </br>
+                    		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
+                    		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
+                </li>
+            <% end %>
+            <% end %>
+            </ul>
+        </div>
     <div id="workspace" class="ui-widget-content ui-state-default">
     	<h4 class="ui-widget-header"> Workspace<span class="ui-icon ui-icon-wrench"></span></h4>
-    	    <a class="btn large primary" data-controls-modal="update-workspace-modal" data-backdrop="static", style="position: relative; bottom:0; width:85%; margin-bottom:10px">Add Event</a>  
+    	    <a class="btn large primary" data-toggle="modal" href="#update-workspace-modal" data-backdrop="static", style="position: relative; bottom:0; width:85%; margin-bottom:10px">Add Event</a>  
     	<% unless @workspace.empty?%>
             <ul class="gallery ui-helper-reset">
         <% end %>
     	<% for p in @workspace %>
         	<li id="#piece:<%=p.id%>" class="ui-widget-content ui-corner-tr ui-draggable" style="width: 90%;">
-                <h5 class="ui-widget-header"><%= p.title%></h5>
+                <h5 class="ui-widget-header">
+                    <%= p.title%>
+                    </br>
+                    <%= p.accession %>
+                </h5>
                 		<%= image_tag p.photo.url(:small), :style => "height: 45px; width: 45px;"%>
-                		<%= p.accession %></br>
-                		<%= p.title %> </br>
                 		<%= p.artist %> </br>
                 		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
                         <a href="link/to/recycle/script/when/we/have/js/off" title="Recycle this image" class="ui-icon ui-icon-refresh">Recycle image</a>
@@ -171,7 +177,7 @@
     	<% end %>
     </div>
 
-
+    </div>
 
 </div><!-- End demo -->
 <%= will_paginate @pieces, :class=>"pagination" %>

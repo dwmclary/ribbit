@@ -1,0 +1,40 @@
+<div class="container-fluid" style="margin-top: 10px;font-size:20pt">
+    <div class="row-fluid">
+        <div class="span3">
+                <div class="row" style="margin-top: 10px">
+                    <strong><%= @p.name %></strong>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <%= @p.affiliation%></br>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <%= @p.details%>
+                </div>
+        </div>
+        <div class="span8">
+            <div id="personalCarousel" class="carousel" style="margin-top:10px">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+                <% first_image = true %>
+                <% for piece in @p.pieces %>
+                    <% if first_image %>
+                        <div class="item active">
+                        <% first_image = false%>
+                    <% else %>
+                        <div class="item">
+                    <% end %>
+                        <img src="<%=piece.photo.url(:original)%>" style="display: block;   margin-left: auto;   margin-right: auto;" alt>
+                        <div class="carousel-caption span2 offset2">
+                            <h4> <%= piece.title%> </h4>
+                            <p> <%= piece.artist.name%> </p>
+                        </div>
+                    </div>
+                <% end %>
+              </div>
+              <!-- Carousel nav -->
+              <a class="carousel-control left" href="#personalCarousel" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#personalCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+        </div>
+    </div>
+</div>

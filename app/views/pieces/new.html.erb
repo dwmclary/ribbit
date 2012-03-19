@@ -5,8 +5,19 @@
                 populateDropdown($("#piece_medium"), data);
             });
         });
+
     });
- 
+    var allArtists = [];
+    $.get("/artists.js", function(data){
+        allArtists= JSON.parse(data);
+    })
+    var allPeople = [];
+    $.get("/people.js", function(data){
+        allPeople = JSON.parse(data);
+    })
+    $('.typeahead' && '.artist').typeahead({source:allArtists});
+    $('.typeahead' && '.people').typeahead({source:allPeople});
+    
     function populateDropdown(select, data) {
         select.html('');
         if (data==null)
@@ -25,18 +36,18 @@
         
     }
 </script>
-
+<div class="row-fluid">
 <%= form_for @piece, :url => pieces_path, :html => {:multipart => true} do |f|%>
-    <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#basic_info">Basic Information</a></li>
-        <li><a href="#dims">Dimensions</a></li>
-        <li><a href="#packing">Packing and Storage</a></li>
-        <li><a href="#loans">Loan Information</a></li>
-        <li><a href="#hanging">Installation</a></li>
-        <li><a href="#notes">Notes</a></li>
+    <ul id="new_piece_tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#basic_info" data-toggle="tab">Basic Information</a></li>
+        <li><a href="#dims" data-toggle="tab">Dimensions</a></li>
+        <li><a href="#packing" data-toggle="tab">Packing and Storage</a></li>
+        <li><a href="#loans" data-toggle="tab">Loan Information</a></li>
+        <li><a href="#hanging" data-toggle="tab">Installation</a></li>
+        <li><a href="#notes" data-toggle="tab">Notes</a></li>
     </ul>
-    <div id="my-tab-content" class="tab-content">
-                <div class="active tab-pane" id="basic_info">
+    <div id="my-tab-content" class="tab-content" style="padding-left:10%">
+                <div class="tab-pane fade active in" id="basic_info">
                     <div class="row">
                         <%= f.label "Accession #", :style=> "margin-right:10px"%>
                         <%= f.text_field :accession %>
@@ -50,8 +61,8 @@
                         <%= f.text_field :title %>
                     </div>
                     <div class="row">
-                        <%= f.label :artist, :style=> "margin-right:10px" %>
-                        <%= f.text_field :artist%>
+                        <%= f.label :artist, :style=> "margin-right:10px"%>
+                        <%= f.text_field :artist, :class=>"typeahead artist"%>
                     </div>
                     <div class="row">
                         <%= f.label :creation_date, :style=> "margin-right:10px" %>
@@ -71,7 +82,7 @@
                         <%= f.file_field :photo %>
                     </div>
                 </div>
-                <div class="tab-pane" id="dims">
+                <div class="tab-pane fade" id="dims">
                     <div class="row">
                             <%= f.label :dimensions, :style=> "margin-right:10px"%>
                             <%= text_field_tag "piece_dimensions_h", "h", :class => "span1"%>
@@ -97,7 +108,7 @@
                           </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="packing">
+                <div class="tab-pane fade" id="packing">
                     <div class="row">
                         <%= f.label :packed_in, :style=> "margin-right:10px"%>
                         <%= f.select :packed_in, ["Crate", "Box", "Bin", "Portfolio"], :include_blank => true %>
@@ -123,7 +134,7 @@
                         <%= f.select :location, Location.all.map(&:name) %>
                     </div>
                 </div>
-                <div class="tab-pane" id="loans">
+                <div class="tab-pane fade" id="loans">
                     <div class="row">
                         <%= f.label :owner, :style=> "margin-right:10px" %>
                         <%= f.text_field :owner %>
@@ -141,7 +152,7 @@
                         <%= f.check_box :incoming_loan%>
                     </div>
                 </div>
-                <div class="tab-pane" id="notes">
+                <div class="tab-pane fade" id="notes">
                     <div class="row">
                         <%= f.label :tags, :style=> "margin-right:10px" %>
                         <%= f.text_field :tags %>
@@ -151,7 +162,7 @@
                         <%= f.text_area :condition_notes, :cols => 24, :rows => 6 %>
                     </div>
                 </div>
-                <div class="tab-pane" id="hanging">
+                <div class="tab-pane fade" id="hanging">
                     <div class="row">
                         <%= f.label :hanging_hardware, :style=> "margin-right:10px" %>
                         <%= f.text_area :hanging_hardware, :cols => 24, :rows => 6 %>
@@ -162,7 +173,7 @@
                     </div>
                 </div>
               </div>
-    <%= f.submit %>
+    <%= f.submit :class => "btn btn-primary", :style => "margin-left:10%"%>
 <% end %>
-
+</div>
 

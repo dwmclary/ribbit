@@ -1,3 +1,4 @@
+require 'json'
 class ArtistsController < ApplicationController
   before_filter :authorize, :skip => :index  
 
@@ -10,7 +11,7 @@ class ArtistsController < ApplicationController
     puts "returning #{@artists.map(&:name)}"
     respond_to do |format|
       format.html
-      format.js {render :text => @artists.map(&:name)}
+      format.js {render :json => @artists.map(&:name)}
     end
   end
   
