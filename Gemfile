@@ -10,11 +10,11 @@ group :development, :test do
   gem 'ruby-debug'
 end
 
-gem 'thinking-sphinx', '2.0.10'
-
-group :production do
-  gem 'flying-sphinx',   '0.6.1'
-end
+# gem 'thinking-sphinx', '2.0.10'
+# 
+# group :production do
+#   gem 'flying-sphinx',   '0.6.1'
+# end
   
 
 
