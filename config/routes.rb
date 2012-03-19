@@ -13,7 +13,7 @@ Ribbit::Application.routes.draw do
       :controller => 'clearance/passwords',
       :only       => [:create, :edit, :update]
   end
-  
+  resources :people
   resources :users, :controller => 'users', :only => [:index, :update, :edit, :destroy]
 
   match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
@@ -38,6 +38,7 @@ Ribbit::Application.routes.draw do
   match 'pieces/event_on_workspace' => 'pieces#event_on_workspace'
   match 'pieces/update_object' => 'pieces#update_objects'
   match 'pieces/materials' => 'pieces#materials'
+  match 'pieces/:piece_id/add_person' => 'pieces#add_person'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
