@@ -134,7 +134,7 @@
 	</script>
 <div class="demo ui-widget ui-helper-clearfix">
     <div class="row-fluid">
-        <div class="span9">
+        <div class="span12">
             <ul id="gallery" class="gallery thumbnails ui-helper-reset ui-helper-clearfix">
             <% for p in @pieces %>
             <% unless @workspace.member? p %>
@@ -144,7 +144,7 @@
                         <%= p.accession%>
                     </h5>
                     		<%= image_tag p.photo.url(:medium)%></br>
-                    		<%= p.artist %> </br>
+                    		<%= p.artist.name %> </br>
                     		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
                     		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
                 </li>
@@ -166,7 +166,7 @@
                     <%= p.accession %>
                 </h5>
                 		<%= image_tag p.photo.url(:small), :style => "height: 45px; width: 45px;"%>
-                		<%= p.artist %> </br>
+                		<%= p.artist.name %> </br>
                 		<%= link_to "View larger image",  p.photo.url(:large), :class=> "ui-icon ui-icon-zoomin"%>
                         <a href="link/to/recycle/script/when/we/have/js/off" title="Recycle this image" class="ui-icon ui-icon-refresh">Recycle image</a>
                 		<%= link_to p, piece_path(p), :class=> "ui-icon ui-icon-folder-open"%>
