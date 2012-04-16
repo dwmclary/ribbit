@@ -10,7 +10,4 @@
   <%= form.label :password %>
   <%= form.password_field :password %>
 </div>
-<div class="drop_down">
-  <%= form.label :role %>
-  <%= form.select :role, ['Curator', 'Administrator', 'Preparator', 'Gallery Assistant', 'Artist', 'Owner', 'Conservator', 'Archivist', 'Registrar', 'Intern', 'Collections Manager']%>
-</div>
+  <%= form.hidden_field :role, :value => "Curator" %>

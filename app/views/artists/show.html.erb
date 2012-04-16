@@ -45,7 +45,7 @@
                 <% else %>
                     <div class="item">
                 <% end %>
-                    <img src="<%=piece.photo.url(:large)%>" style="display: block;   margin-left: auto;   margin-right: auto;" alt>
+                    <a href="<%=piece_path(piece)%>"><img src="<%=piece.photo.url(:large)%>" style="display: block;   margin-left: auto;   margin-right: auto;" alt></a>
                     <div class="carousel-caption span2 offset4">
                         <h4> <%= piece.title%> </h4>
                         <p> <%= piece.artist.name%> </p>

@@ -1,8 +1,10 @@
 <%= javascript_include_tag "jquery.tablesorter.min.js"%>
 <script>
+  <% if @p.events.length > 1 %>
   $(function() {
     $("table#pieceEventIndexTable").tablesorter({ sortList: [[1,0]] });
   });
+  <% end %>
   var allArtists = [];
   $.get("/artists.js", function(data){
       allArtists= JSON.parse(data);
@@ -17,8 +19,7 @@
 </script>
 <!--  modal content -->
 
-
-<div id="modal-from-dom" class="modal hide fade in" style="width:55%">
+<div id="modal-from-dom" class="modal hide fade in" style="width:60%">
   <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
     <h3>Edit Object</h3>
@@ -43,32 +44,31 @@
     </div>
 </div>
     <ul id="piece-tab" class="nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#basic_info" data-toggle="tab">Basic Information</a></li>
-        <li><a href="#dims" data-toggle="tab">Dimensions</a></li>
-        <li><a href="#packing" data-toggle="tab">Packing and Storage</a></li>
-        <li><a href="#loans" data-toggle="tab">Loan Information</a></li>
-        <li><a href="#hanging" data-toggle="tab">Installation</a></li>
-        <li><a href="#notes" data-toggle="tab">Notes</a></li>
+        <li class="active"><a href="#basic_info" data-toggle="tab">Object</a></li>
+        <li><a href="#dims" data-toggle="tab">Specifications</a></li>
+        <li><a href="#loans" data-toggle="tab">Loans</a></li>
         <% unless @p.events.empty? %>
-        <li><a href="#events" data-toggle="tab">Events</a></li>
+        <li><a href="#events" data-toggle="tab">History</a></li>
         <% end %>
         <% unless @p.people.empty?%>
-        <li><a href="#people" data-toggle="tab">People</a></li>
+        <li><a href="#people" data-toggle="tab">Contacts</a></li>
         <% end %>
+        <li><a href="#notes" data-toggle="tab">Notes</a></li>
     </ul>
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span4">
-                <%= image_tag @p.photo.url(:large)%>
-
+        <div class="row=fluid">
+            <div class="span6">
+                <%= image_tag @p.photo.url(:xlarge)%>
             </div>
-            <div class="span8">
+            <div class="span3 offset1">
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane fade active in" id="basic_info" style="font-size:20px">
                         <%= render "basic_info"%>
                     </div>
                     <div class="tab-pane fade" id="dims" style="font-size:20px">
                         <%= render "dimensions"%>
+                        <%= render "packing_info"%>
+                        <%= render "hanging" %>
                     </div>
                     <div class="tab-pane fade" id="packing" style="font-size:20px">
                         <%= render "packing_info"%>
@@ -83,7 +83,6 @@
                     </div>
           
                     <div class="tab-pane fade" id="hanging" style="font-size:20px">
-                        <%= render "hanging" %>
                     </div>
                     <div class="tab-pane fade" id="events" style="font-size:20px">
                         <div class="row-fluid">
@@ -128,18 +127,24 @@
                 </div>
             <% if signed_in? %>
             </div>
-            <div class="span10">
-                <% if ['Preparator', 'Gallery Assistant', 'Intern', 'Administrator', 'Registrar', 'Collections Manager'].member? current_user.role%>
-            <a class="btn large info" data-toggle="modal" href="#modal-from-dom" style="width:10%; margin-bottom:10px">Edit Object</a>
-            <a class="btn large info" data-toggle="modal" href="#person-modal-from-dom" style="width:10%; margin-bottom:10px">Add Person</a>
-                <% end %>
-            <%= link_to "Add Event", new_piece_event_path(@p), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
-            <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
-            <%= link_to "View Gallery", piece_gallery_path(@p, @p.gallery), :class => "btn large info",:style=> "width:10%; margin-bottom:10px" %>
-            <% if current_user.role == "Administrator" %>
-                <%= link_to "Delete Object", {:controller => "pieces", :action => "destroy", :id => @p.id}, :method => :delete, :class => "btn large danger",:style=> "width:10%;margin-bottom:10px", :confirm => "Are you sure you want to delete this object?" %>
-            <% end %>
+            <div class="span1">
+                    <div class="btn-group" style="width:100px">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:80px; margin-bottom:10px"> Edit Object <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <a data-toggle="modal" href="#modal-from-dom">Modify </a>
+                            <a data-toggle="modal" href="#person-modal-from-dom" style="width:10%; margin-bottom:10px">Add Contact</a>
+                            <%= link_to "Add Event", new_piece_event_path(@p) %>
+                            <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery) %>
+                            <% if current_user.role == "Administrator" %>
+                                <%= link_to "Delete Object", {:controller => "pieces", :action => "destroy", :id => @p.id}, :method => :delete, :confirm => "Are you sure you want to delete this object?" %>
+                            <% end %>
+                    </div>
             </div>
+            <div class="span1 offset1">
+            <%= link_to "View Gallery", piece_gallery_path(@p, @p.gallery), :class => "btn large info",:style=> "width:75px;margin-bottom:10px" %>
+            </div>
+            <%= render "gallery_bulk_upload"%>
             <% end %>
         </div>
     </div>    

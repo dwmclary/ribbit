@@ -4,13 +4,14 @@
   <title>Ribbit</title>
   <%= stylesheet_link_tag "jquery-ui-1.8.16.custom" %>
   <%= stylesheet_link_tag "bootstrap" %>
-  <%= stylesheet_link_tag "jquery.autocomplete" %>
+  <%= stylesheet_link_tag "jquery.fileupload-ui" %>
   <%= javascript_include_tag "jquery-1.7.1.min.js" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min.js" %>
   <%= javascript_include_tag "rails"%>
   <%= javascript_include_tag "bootstrap"%>
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <% unless alert.nil?%>
@@ -28,30 +29,60 @@
     <% end %>
     
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
+        <div class="row">
+            <div class="span1" style="margin-right:40px; margin-top:30px">
                     <% if signed_in? %>
-                      <%= current_user.email %>
-                      <%= link_to "Sign out", sign_out_path, :method => :delete,  :class => "btn btn-primary", :style=> "width:130px; margin-bottom:10px" %>
-                    <%= link_to "Search", "/search", :class => "btn btn-primary", :style=> "width:130px; margin-bottom:10px"%>
-                    <% if ['Registrar', 'Collections Manager', 'Administrator'].member? current_user.role %>
-                    <%= link_to "New Object", new_piece_path, :class => "btn btn-primary", :style=> "width:130px; margin-bottom:10px" %>
-                    <% end %>
-                    <%= link_to "List All Objects", pieces_path, :class => "btn btn-primary",:style=> "width:130px; margin-bottom:10px" %>
-                    <%= link_to "New Location", new_location_path, :class => "btn btn-primary",:style=> "width:130px; margin-bottom:10px" %>
-                    <%= link_to "New Artist", new_artist_path, :class => "btn btn-primary",:style=> "width:130px; margin-bottom:10px" %>
-                    <%= link_to "New Person", new_person_path, :class => "btn btn-primary",:style=> "width:130px; margin-bottom:10px" %>
+                    <%= link_to "Search", "/search", :class => "btn ", :style=> "width:70px; margin-bottom:10px;margin-left:5px"%>
+
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:75px; margin-bottom:10px;margin-left:5px"> Objects <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "List", pieces_path%></li>
+                            <li><%= link_to "New", new_piece_path%></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:75px; margin-bottom:10px"> Locations <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "List", locations_path %></li>
+                            <li><%= link_to "New", new_location_path %></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:75px; margin-bottom:10px"> Artists <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "List", artists_path %></li>
+                            <li><%= link_to "New", new_artist_path %></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:75px; margin-bottom:10px"> Contacts <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "List", people_path %></li>
+                            <li><%= link_to "New", new_person_path %></li>
+                        </ul>
+                    </div>
                     <% if current_user.role == "Administrator" %>
-                    <%= link_to "User Administration", "/users", :class => "btn btn-primary", :style=> "width:130px; margin-bottom:10px" %>
+                    <%= link_to "User Administration", "/users", :class => "btn ", :style=> "width:75px; margin-bottom:10px" %>
                     <% end %>
                     <% else %>
-                      <%= link_to "Sign in", sign_in_path,  :class => "btn large", :style=> "width:130px; margin-bottom:10px"%>
+                      <%= link_to "Sign in", sign_in_path,  :class => "btn large", :style=> "width:75px; margin-bottom:10px"%>
                     <% end %>
             
             </div>
-            <div class="span10" id="before_yield">
+            <div class="span11" id="before_yield" style="margin-top:30px">
                     <%= yield %>
             </div>
+            <% if signed_in? %>
+                <%= link_to "Sign out: #{current_user.email}", sign_out_path, :method => :delete, :style=> "width:75px; margin-bottom:10px" %>
+            <% end %>
       </div>
 
 </body>

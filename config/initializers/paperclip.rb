@@ -15,5 +15,5 @@ if File.exists?("#{Rails.root}/config/s3.yml")
     S3_CREDENTIALS[:bucket] = "ribbitheroku"
   end
 else
-  S3_CREDENTIALS = { :access_key_id => ENV['S3_KEY'], :secret_access_key => ENV['S3_SECRET'], :bucket => "ourbucket"} 
+  S3_CREDENTIALS = { :access_key_id => ENV['S3_KEY'], :secret_access_key => ENV['S3_SECRET'], :bucket => "ribbitphotos"} 
 end

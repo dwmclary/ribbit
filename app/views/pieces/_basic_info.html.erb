@@ -1,39 +1,44 @@
 <% unless @p.accession.blank? %>
 <div class="row" style="margin-bottom:20px">
-    Accession # <strong><%= @p.accession%></strong>
-</div>
-<% end %>
-<% unless @p.accession_date.blank?%>
-<div class="row" style="margin-bottom:20px">
-    Accession Date <strong><%= @p.accession_date %></strong>
-</div>
-<% end %>
-<% unless @p.title.blank? %>
-<div class="row" style="margin-bottom:20px">
-     Title <strong><%= @p.title %></strong>
+    <h6>Accession #</h6> <%= @p.accession%>
 </div>
 <% end %>
 <% unless @artist.nil? %>
 <div class="row" style="margin-bottom:20px">
-     Artist <strong><%= link_to @artist.name, @artist %></strong>
+     <h6>Artist</h6> <%= link_to @artist.name, @artist %>
 </div>
 <% else %>
 <div class="row" style="margin-bottom:20px">
-     Artist <strong><%=  @p.artist %></strong>
+     <h6>Artist</h6> <%=  @p.artist %>
 </div>
 <% end %>
-<% unless @p.creation_date.blank? %>
+<% unless @p.title.blank? %>
 <div class="row" style="margin-bottom:20px">
-     Created  <strong><%= @p.creation_date %></strong>
+     <h6>Title</h6> <%= @p.title %>
 </div>
 <% end %>
 <% unless @p.classification.blank? %>
 <div class="row" style="margin-bottom:20px">
-     Classification <strong><%= @p.classification%></strong>
+     <h6> Classification </h6> <%= @p.classification%>
 </div>
 <% end %>
 <% unless @p.medium.blank? %>
 <div class="row" style="margin-bottom:20px">
-     Medium <strong><%= @p.medium%></strong>
+     <h6>Medium</h6> <%= @p.medium%>
 </div>
 <% end %>
+<% unless @p.creation_date.blank? %>
+<div class="row" style="margin-bottom:20px">
+     <h6>Created</h6>  <%= @p.creation_date %>
+</div>
+<% end %>
+<% unless @p.dimensions.blank? %>
+<div class="row" style="margin-bottom:20px">
+    <h6>Dimension</h6> <%= @p.dimensions%>
+</div>
+<% end %>
+<% unless @p.owner.blank?%>
+<div class="row" style="margin-bottom:20px">
+    <h6>Collection of</h6> <%= @p.owner%>
+</div>
+<% end%>

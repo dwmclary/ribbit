@@ -1,5 +1,9 @@
 class LocationsController < ApplicationController
   before_filter :authorize
+  
+  def index
+    @locations = Location.all
+  end
   def show
     @l = Location.find(params[:id])
     respond_to do |format|

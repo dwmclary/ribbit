@@ -31,6 +31,7 @@ Ribbit::Application.routes.draw do
   match 'search/results' => 'search#show'
   match 'search/results' => 'search#show'
   resources :artists
+  resources :gallery_images
   
   match 'pieces/:piece_id/events/:id/update_object' => 'events#update_object'
   match 'pieces/add_to_workspace' => 'pieces#add_to_workspace'
