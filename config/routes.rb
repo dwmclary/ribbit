@@ -15,6 +15,7 @@ Ribbit::Application.routes.draw do
   end
   resources :people
   resources :users, :controller => 'users', :only => [:index, :update, :edit, :destroy]
+  resources :hyperlinks, :only => [:create, :destroy]
 
   match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
   match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'

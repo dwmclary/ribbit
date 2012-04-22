@@ -17,6 +17,34 @@ class PeopleController < ApplicationController
       format.html
     end
   end
+  
+  def edit
+    @person = Person.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def update
+    @person = Person.find(params[:id])
+    @person.update_attributes(params[:person])
+    respond_to do |format|
+      if @person.save!
+        format.html {redirect_to @person, :notice => "Person updated"}
+      else
+        format.html {render :action => "edit", :alert => "Person not updated"}
+      end
+    end
+    
+  end
+  
+  def destroy
+    @person = Person.find(params[:id])
+    @person.destroy
+    respond_to do  |format|
+      format.html {redirect_to(people_path, :notice => "Contact deleted")}
+    end
+  end
 
   
   def create

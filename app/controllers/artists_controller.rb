@@ -9,6 +9,7 @@ class ArtistsController < ApplicationController
       @artists = Artist.all
     end
     puts "returning #{@artists.map(&:name)}"
+    
     respond_to do |format|
       format.html
       format.js {render :json => @artists.map(&:name)}
@@ -17,7 +18,8 @@ class ArtistsController < ApplicationController
   
   def show
     @a = Artist.find(params[:id])
-    
+    @hyperlink = Hyperlink.new
+    @hyperlinks = @a.hyperlinks
     respond_to do |format|
       format.html
     end
@@ -43,7 +45,31 @@ class ArtistsController < ApplicationController
     end
   end
   
+  def edit
+    @artist = Artist.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def destroy
+    @artist = Artist.find(params[:id])
+    @artist.destroy
+    respond_to do  |format|
+      format.html {redirect_to(artists_path, :notice => "Artist deleted")}
+    end
+  end
+  
   def update
+    @artist = Artist.find(params[:id])
+    @artist.update_attributes(params[:artist])
+    respond_to do |format|
+      if @artist.save!
+        format.html {redirect_to @artist, :notice => "Artist updated"}
+      else
+        format.html {render :action => "edit", :alert => "Artist not updated"}
+      end
+    end
   end
   
 end

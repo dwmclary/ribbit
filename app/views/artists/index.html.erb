@@ -1,3 +1,40 @@
+<table class="table table-striped table-condensed" id="pieceEventIndexTable"> 
+    <thead> 
+        <tr> 
+	        <th>Name</th> 
+	        <th>Born</th>
+	        <th>Edit</th>
+	        <th>Delete</th>
+        </tr> 
+    </thead> 
+    <tbody>
+
 <% for a in @artists %>
-    <%= link_to a.name, artist_path(a) %>
+    <tr>
+        <td>
+            <%= link_to a.name, artist_path(a) %>
+        </td>
+        <td>
+            <a href="<%=artist_path(a)%>" rel="popover" data-content="<%=a.biography%>"><%= a.born %></a>
+                      <script>
+                        $(function () {
+                          $("a[rel=popover]")
+                            .popover({
+                              offset: 10
+                            })
+                            .click(function(e) {
+                              e.preventDefault()
+                            })
+                        })
+                      </script>
+        </td>
+        <td>
+            <%= link_to "Edit", edit_artist_path(a), :class => "btn"  %>
+        </td>
+        <td>
+            <%= link_to "Delete", artist_path(a), :method=>:delete, :class => "btn btn-danger", :confirm => "Are you sure?" %>
+        </td>
+    </tr>
 <% end %>
+    </tbody>
+</table>

@@ -43,6 +43,24 @@
         </div>
     </div>
 </div>
+<div id="link-modal-from-dom" class="modal hide fade in">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Add Link</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+        <%= form_for @hyperlink do |f| %>
+                <%= f.label :link_text, "Link to", :style=> "margin-right:10px"%>
+                <%= f.text_field :link_text %>
+                <%= f.hidden_field :user_id, :value => current_user.id%>
+                <%= f.hidden_field :artist_id, :value => @artist.id %>
+                <%= f.hidden_field :piece_id, :value => @p.id%>
+                <%= f.submit "Add" %>
+        <% end %>
+        </div>
+    </div>
+</div>
     <ul id="piece-tab" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#basic_info" data-toggle="tab">Object</a></li>
         <li><a href="#dims" data-toggle="tab">Specifications</a></li>
@@ -52,6 +70,9 @@
         <% end %>
         <% unless @p.people.empty?%>
         <li><a href="#people" data-toggle="tab">Contacts</a></li>
+        <% end %>
+        <% unless @p.hyperlinks.empty? %>
+        <li><a href="#links" data-toggle="tab">Links</a></li>
         <% end %>
         <li><a href="#notes" data-toggle="tab">Notes</a></li>
     </ul>
@@ -82,7 +103,8 @@
                         <%= render "notes"%>
                     </div>
           
-                    <div class="tab-pane fade" id="hanging" style="font-size:20px">
+                    <div class="tab-pane fade" id="links" style="font-size:14px">
+                        <%= render "artists/link_table"%>
                     </div>
                     <div class="tab-pane fade" id="events" style="font-size:20px">
                         <div class="row-fluid">
@@ -127,6 +149,8 @@
                 </div>
             <% if signed_in? %>
             </div>
+            </div>
+            <div class="span11" style="margin-top:10px"/>
             <div class="span1">
                     <div class="btn-group" style="width:100px">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="width:80px; margin-bottom:10px"> Edit Object <span class="caret"></span>
@@ -134,6 +158,7 @@
                         <ul class="dropdown-menu">
                             <a data-toggle="modal" href="#modal-from-dom">Modify </a>
                             <a data-toggle="modal" href="#person-modal-from-dom" style="width:10%; margin-bottom:10px">Add Contact</a>
+                            <a data-toggle="modal" href="#link-modal-from-dom" style="width:10%; margin-bottom:10px">Add Link</a>
                             <%= link_to "Add Event", new_piece_event_path(@p) %>
                             <%= link_to "Add Image", new_piece_gallery_gallery_image_path(@p, @p.gallery) %>
                             <% if current_user.role == "Administrator" %>

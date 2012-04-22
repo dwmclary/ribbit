@@ -5,4 +5,5 @@ class Artist < ActiveRecord::Base
   :s3_credentials => S3_CREDENTIALS,
   :path => "/artists/:id/:style/:filename"
   has_many :pieces
+  has_and_belongs_to_many :hyperlinks
 end

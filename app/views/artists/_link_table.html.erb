@@ -1,0 +1,21 @@
+<table class="table table-striped table-condensed" id="pieceEventIndexTable"> 
+    <thead> 
+        <tr> 
+	        <th>Link</th> 
+        </tr> 
+    </thead> 
+    <tbody>
+
+<% for l in @hyperlinks %>
+    <tr>
+        <td>
+            <%= link_to l.link_text, l.link_text %>
+        </td>
+
+        <td>
+            <%= link_to "Delete", hyperlink_path(l), :method=>:delete, :class => "btn btn-danger", :confirm => "Are you sure?" %>
+        </td>
+    </tr>
+<% end %>
+    </tbody>
+</table>

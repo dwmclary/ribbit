@@ -4,7 +4,7 @@
             <div class="span5 offset1">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
-                    <span>Add files...</span>
+                    <span>Add images...</span>
                     <%= f.file_field :photo, :multiple => true %>
                     <%= f.hidden_field :piece_id, :value => "#{@p.id}"%>
                 </span>

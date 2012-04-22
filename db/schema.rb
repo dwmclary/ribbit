@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319015345) do
+ActiveRecord::Schema.define(:version => 20120422064000) do
 
   create_table "artists", :force => true do |t|
     t.string   "name",               :null => false
@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(:version => 20120319015345) do
     t.datetime "photo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "artists_hyperlinks", :id => false, :force => true do |t|
+    t.integer "hyperlink_id"
+    t.integer "artist_id"
   end
 
   create_table "events", :force => true do |t|
@@ -73,6 +78,20 @@ ActiveRecord::Schema.define(:version => 20120319015345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "piece_id"
+  end
+
+  create_table "hyperlinks", :force => true do |t|
+    t.string   "link_text",  :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "piece_id"
+    t.integer  "artist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hyperlinks_pieces", :id => false, :force => true do |t|
+    t.integer "hyperlink_id"
+    t.integer "piece_id"
   end
 
   create_table "locations", :force => true do |t|
@@ -124,6 +143,8 @@ ActiveRecord::Schema.define(:version => 20120319015345) do
     t.string   "packed_with"
     t.string   "packed_in"
     t.integer  "artist_id"
+    t.integer  "user_id",                                  :null => false
+    t.string   "artist_name"
   end
 
   create_table "users", :force => true do |t|

@@ -37,7 +37,9 @@ class PiecesController < ApplicationController
   
   def show
     @gallery_image = GalleryImage.new
+    @hyperlink = Hyperlink.new
     @p = Piece.find(params[:id])
+    @hyperlinks = @p.hyperlinks
     @artist = Artist.find(@p.artist_id) unless @p.artist_id.nil?
     respond_to do |format|
       format.html
@@ -59,7 +61,7 @@ class PiecesController < ApplicationController
     @artist = Artist.find_by_name(params[:piece][:artist])
     params[:piece][:artist] = @artist
     @piece = Piece.new(params[:piece])
-    
+    @piece.user_id = current_user.id
     respond_to do |format|
       if @piece.save
         @piece.add_gallery

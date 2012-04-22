@@ -1,0 +1,33 @@
+<%= form_for @artist, :url => artist_path(@artist), :html => {:multipart => true} do |f| %>
+    <div class="row">
+        <%= f.label "Artist Name", :style=> "margin-right:10px" %>
+        <%= f.text_field :name %>
+    </div>
+    <div class="row">
+        <%= f.label :gender, :style=> "margin-right:10px" %>
+        <%= f.select :gender, ["Male", "Female"], :include_blank => true%>
+    </div>
+    <div class="row">
+        <%= f.label :born, :style=> "margin-right:10px" %>
+        <%= f.text_field :born%>
+    </div>
+    <div class="row">
+        <%= f.label :died, :style=> "margin-right:10px" %>
+        <%= f.text_field :died%>
+    </div>
+    <div class="row">
+        <%= f.label :birthplace, :style=> "margin-right:10px" %>
+        <%= f.text_field :birthplace%>
+    </div>
+    <div class="row">
+        <%= f.label :biography, :style=> "margin-right:10px" %>
+        <%= f.text_area :biography, :cols => 24, :rows => 6%>
+    </div>
+    <div class="row">
+        <%= f.label :photo, :style=> "margin-right:10px" %>
+        <%= f.file_field :photo %>
+    </div>
+    <div class="row">
+        <%= f.submit "Update", :confirm => "Are you sure?" %>
+    </div>
+<% end %>

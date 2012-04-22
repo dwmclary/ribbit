@@ -10,7 +10,8 @@ class Piece < ActiveRecord::Base
   has_one :gallery
   has_and_belongs_to_many :people
   belongs_to :artist
-  
+  belongs_to :user
+  has_and_belongs_to_many :hyperlinks
   self.per_page=9
 
   
